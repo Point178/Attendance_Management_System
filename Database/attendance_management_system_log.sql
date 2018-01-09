@@ -29,7 +29,7 @@ CREATE TABLE `log` (
   `operation` varchar(100) NOT NULL,
   PRIMARY KEY (`ldate`,`ltime`,`eno`),
   KEY `logeno_idx` (`eno`),
-  CONSTRAINT `logeno` FOREIGN KEY (`eno`) REFERENCES `employee` (`eno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `logeno` FOREIGN KEY (`eno`) REFERENCES `employee` (`eno`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-06 22:03:22
+-- Dump completed on 2018-01-09 18:35:17

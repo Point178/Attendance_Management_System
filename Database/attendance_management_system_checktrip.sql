@@ -29,8 +29,8 @@ CREATE TABLE `checktrip` (
   `trefuse` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`dno`,`tno`),
   KEY `ttno_idx` (`tno`),
-  CONSTRAINT `tdno` FOREIGN KEY (`dno`) REFERENCES `department` (`dno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `ttno` FOREIGN KEY (`tno`) REFERENCES `trip` (`tno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `tdno` FOREIGN KEY (`dno`) REFERENCES `department` (`dno`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `ttno` FOREIGN KEY (`tno`) REFERENCES `trip` (`tno`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-06 22:03:23
+-- Dump completed on 2018-01-09 18:35:18
