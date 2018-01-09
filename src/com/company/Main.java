@@ -72,6 +72,7 @@ public class Main {
             }
             System.out.println("您好 " + name +" ! 今天是"+sqlDate+" "+state);
 
+
             // 写入login 日志
             sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'login')";
             stmt.executeUpdate(sql);

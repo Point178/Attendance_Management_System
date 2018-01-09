@@ -182,7 +182,7 @@ public class Employee {
         } while (!Objects.equals(passwd, in.nextLine()));
 
         //update database
-        String sql = "update employee set password=" + passwd + " where eno=" + id;
+        String sql = "update employee set password='" + passwd + "' where eno='" + id+"'";
         stmt.execute(sql);
         System.out.println("修改密码成功!");
 
