@@ -25,10 +25,8 @@ DROP TABLE IF EXISTS `belong`;
 CREATE TABLE `belong` (
   `eno` varchar(10) NOT NULL,
   `dno` varchar(5) NOT NULL,
-  KEY `eno_idx` (`eno`),
-  KEY `dno_idx` (`dno`),
-  CONSTRAINT `dno` FOREIGN KEY (`dno`) REFERENCES `department` (`dno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `eno` FOREIGN KEY (`eno`) REFERENCES `employee` (`eno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`eno`),
+  KEY `dno_idx` (`dno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +36,7 @@ CREATE TABLE `belong` (
 
 LOCK TABLES `belong` WRITE;
 /*!40000 ALTER TABLE `belong` DISABLE KEYS */;
-INSERT INTO `belong` VALUES ('10001','100'),('10002','100 '),('10004','101'),('10005','101'),('10006','100');
+INSERT INTO `belong` VALUES ('10001','100'),('10002','100'),('10006','100'),('10007','100'),('10004','101'),('10005','101'),('10008','101');
 /*!40000 ALTER TABLE `belong` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-06 22:03:23
+-- Dump completed on 2018-01-09 17:57:01
