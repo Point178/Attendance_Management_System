@@ -54,8 +54,12 @@ public class Main {
             }
 
             // 登陆成功
-            java.sql.Date sqlDate=new java.sql.Date(new java.util.Date().getTime());
-            String sql = "SELECT vacation FROM vacation WHERE vdate="+sqlDate;
+            java.util.Date date = new java.util.Date();
+            java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+            java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
+            String nowTime = f.format(date);
+
+            String sql = "SELECT vacation FROM vacation WHERE vdate='"+sqlDate+"'";
             ResultSet rs = stmt.executeQuery(sql);
 
             String state="";
@@ -67,6 +71,10 @@ public class Main {
                 }
             }
             System.out.println("您好 " + name +" ! 今天是"+sqlDate+" "+state);
+
+            // 写入login 日志
+            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'login')";
+            stmt.executeUpdate(sql);
 
             while(true) {
                 System.out.println("请选择身份操作：（输入数字）");
