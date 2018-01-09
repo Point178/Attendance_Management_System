@@ -140,6 +140,8 @@ public class Main {
                     case 3:
                         break;
                     case 4:
+                        Administrator administrator=new Administrator(id, stmt);
+                        administrator.run();
                         break;
                 }
             }
