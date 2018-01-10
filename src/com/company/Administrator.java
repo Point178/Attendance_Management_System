@@ -2,6 +2,9 @@ package com.company;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Scanner;
@@ -19,7 +22,7 @@ public class Administrator {
         try {
             boolean execute = true;
             while (execute) {
-                System.out.println("请选择操作：\n1. 管理用户信息\n2. 查看考勤信息\n3. 管理日志信息\n4. 退出系统\n其他  返回上级菜单");
+                System.out.println("请选择操作：\n1. 管理用户信息\n2. 查看考勤信息\n3. 管理日志信息\n4. 系统设置\n5. 退出系统\n其他  返回上级菜单");
                 Scanner in = new Scanner(System.in);
                 String input = in.nextLine();
                 switch (input) {
@@ -31,9 +34,12 @@ public class Administrator {
                         break;
                     case "3":
                         manageLog();
-                        break;
                     case "4":
+                        setSystem();
+                        break;
+                    case "5":
                         System.exit(0);
+                        break;
                     default:
                         execute = false;
                         break;
@@ -346,6 +352,11 @@ public class Administrator {
         }
     }
 
+    /**
+     * 管理日志信息
+     *
+     * @throws Exception
+     */
     private void manageLog() throws Exception {
         boolean execute = true;
         while (execute) {
@@ -368,6 +379,11 @@ public class Administrator {
         }
     }
 
+    /**
+     * 查看日志信息
+     *
+     * @throws Exception
+     */
     private void viewLog() throws Exception {
         ResultSet rs = stmt.executeQuery("SELECT * FROM log");
         System.out.println("日期        时间      工号   操作");
@@ -381,16 +397,21 @@ public class Administrator {
         System.out.println();
     }
 
+    /**
+     * 删除日志信息
+     *
+     * @throws Exception
+     */
     private void deleteLog() throws Exception {
         System.out.println("请输入日期、时间、工号");
         Scanner scanner = new Scanner(System.in);
         String date = scanner.next();
-        String time=scanner.next();
-        String eno=scanner.next();
+        String time = scanner.next();
+        String eno = scanner.next();
         /*Date jdate = new java.util.Date();
         java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
         String time1 = f.format(jdate);*/
-        ResultSet rs = stmt.executeQuery("SELECT * FROM log WHERE ldate ='" + date+"' AND ltime='"+time+"' AND eno='"+eno+"'");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM log WHERE ldate ='" + date + "' AND ltime='" + time + "' AND eno='" + eno + "'");
         int count = 0;
         while (rs.next()) {
             count = rs.getInt(1);
@@ -399,11 +420,17 @@ public class Administrator {
             System.out.println("不存在该日志！");
             return;
         }
-        String sql = "DELETE FROM log WHERE ldate ='" + date+"' AND ltime='"+time+"' AND eno='"+eno+"'";
+        String sql = "DELETE FROM log WHERE ldate ='" + date + "' AND ltime='" + time + "' AND eno='" + eno + "'";
         stmt.executeUpdate(sql);
         System.out.println("删除日志成功！");
     }
 
+    /**
+     * 写日志
+     *
+     * @param log 操作内容
+     * @throws Exception
+     */
     void writelog(String log) throws Exception {
         //write log
         Date date = new java.util.Date();
@@ -412,5 +439,175 @@ public class Administrator {
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         String sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'" + log + "')";
         stmt.executeUpdate(sql);
+    }
+
+    /**
+     * 系统设置管理
+     *
+     * @throws Exception
+     */
+    private void setSystem() throws Exception {
+        boolean execute = true;
+        while (execute) {
+            System.out.println("请选择操作：\n1. 上下班时间管理\n2. 放假日期管理\n3. 退出系统\n其他  返回上级菜单");
+            Scanner in = new Scanner(System.in);
+            String input = in.nextLine();
+            switch (input) {
+                case "1":
+                    manageTime();
+                    break;
+                case "2":
+                    manageVacation();
+                    break;
+                case "3":
+                    System.exit(0);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    /**
+     * 上下班时间管理
+     *
+     * @throws Exception
+     */
+    private void manageTime() throws Exception {
+        boolean execute = true;
+        while (execute) {
+            System.out.println("请选择操作：\n1. 查看上下班时间\n2. 修改上班时间\n3. 修改下班时间\n4. 退出系统\n其他  返回上级菜单");
+            Scanner in = new Scanner(System.in);
+            String input = in.nextLine();
+            switch (input) {
+                case "1":
+                    viewTime();
+                    break;
+                case "2":
+                    modifyTime(1);
+                    break;
+                case "3":
+                    modifyTime(2);
+                    break;
+                case "4":
+                    System.exit(0);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    /**
+     * 查看上下班时间
+     *
+     * @throws Exception
+     */
+    private void viewTime() throws Exception {
+        ResultSet rs = stmt.executeQuery("SELECT stime, etime FROM time");
+        if (rs.next()) {
+            System.out.println("上班时间：" + rs.getTime(1));
+            System.out.println("下班时间：" + rs.getTime(2));
+        }
+        System.out.println();
+    }
+
+    /**
+     * 修改上下班时间
+     *
+     * @param num 1：上班 2：下班
+     * @throws Exception
+     */
+    private void modifyTime(int num) throws Exception {
+        String choice = null;
+        String out = null;
+        if (num == 1) {
+            choice = "stime";
+            out = "上班时间";
+        } else if (num == 2) {
+            choice = "etime";
+            out = "下班时间";
+        }
+        System.out.println("请输入修改后的时间（HH:mm:ss格式）");
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        java.util.Date d = format.parse(input);
+        java.sql.Time time = new java.sql.Time(d.getTime());
+
+        String sql = "update time SET " + choice + "='" + time + "'";
+        stmt.execute(sql);
+        System.out.println(out + "修改成功!");
+    }
+
+    /**
+     * 管理放假时间
+     *
+     * @throws Exception
+     */
+    private void manageVacation() throws Exception {
+        boolean execute = true;
+        while (execute) {
+            System.out.println("请选择操作：\n1. 查看放假日期\n2. 设置放假日期\n3. 设置上班日期\n4. 退出系统\n其他  返回上级菜单");
+            Scanner in = new Scanner(System.in);
+            String input = in.nextLine();
+            switch (input) {
+                case "1":
+                    viewVacation();
+                    break;
+                case "2":
+                    modifyVacation(1);
+                    break;
+                case "3":
+                    modifyVacation(2);
+                    break;
+                case "4":
+                    System.exit(0);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    /**
+     * 查看放假日期
+     *
+     * @throws Exception
+     */
+    private void viewVacation() throws Exception {
+        System.out.println("放假日期：");
+        ResultSet rs = stmt.executeQuery("SELECT vdate FROM vacation WHERE vacation=1");
+        while (rs.next()) {
+            System.out.println(rs.getDate(1));
+        }
+        System.out.println();
+    }
+
+    /**
+     * 设置放假/上班日期
+     *
+     * @param num 1：设置放假日期 2：设置上班日期
+     */
+    private void modifyVacation(int num) throws Exception {
+        int choice = -1;
+        String out = null;
+        if (num == 1) {
+            choice = 1;
+            out = "放假日期";
+        } else if (num == 2) {
+            choice = 0;
+            out = "上班日期";
+        }
+        System.out.println("请输入" + out + "（yyyy-MM-dd格式）");
+        Scanner in = new Scanner(System.in);
+        String input = in.nextLine();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date d = format.parse(input);
+        java.sql.Date vdate = new java.sql.Date(d.getTime());
+        String sql = "update vacation SET vacation ='" + choice + "'WHERE vdate = '" + vdate + "'";
+        stmt.execute(sql);
+        System.out.println(out + "设置成功!");
     }
 }
