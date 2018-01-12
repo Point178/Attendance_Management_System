@@ -145,12 +145,12 @@ public class Main {
                         employee.run();
                         break;
                     case 2:
-                        //DepartmentManager departmentManager = new DepartmentManager(id,stmt);
-                        //departmentManager.run();
+                        DepartmentManager departmentManager = new DepartmentManager(id,stmt);
+                        departmentManager.run();
                         break;
                     case 3:
-                        //PersonnelManager personnelManager = new PersonnelManager(id,stmt);
-                        //personnelManager.run();
+                        PersonnelManager personnelManager = new PersonnelManager(id,stmt);
+                        personnelManager.run();
                         break;
                     case 4:
                         Administrator administrator=new Administrator(id, stmt);
