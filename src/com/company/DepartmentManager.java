@@ -1,5 +1,3 @@
-package com.company;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
@@ -197,7 +195,7 @@ public class DepartmentManager {
                         " AND checkleave.lstate != '1' ";//所有不是待审批状态的记录
                 rs = stmt.executeQuery(sql);
                 System.out.println("以下是您审批的部门下所有员工的请假信息");
-                System.out.println("序号-----员工工号-----开始日期------结束日期-----请假类型-----请假理由");
+                System.out.println("序号--------员工工号-----开始日期-----结束日期-----审批状态-----拒绝理由");
                 String line;
                 while (rs.next()){
                     line = rs.getString("lno") +"     ";
@@ -233,7 +231,7 @@ public class DepartmentManager {
                         " AND checktrip.tstate != '1' ";
                 rs = stmt.executeQuery(sql);
                 System.out.println("以下是您审批的部门下所有员工的出差信息");
-                System.out.println("序号-----员工工号-----开始日期------结束日期-----出差类型-----出差理由");
+                System.out.println("序号--------员工工号-----开始日期-----结束日期-----审批状态-----拒绝理由");
                 while (rs.next()){
                     line = rs.getString("tno") +"     ";
                     line += rs.getString("teo")+"     ";
@@ -276,7 +274,7 @@ public class DepartmentManager {
                         " AND lstate = 1 ");//待审批或者被驳回的申请
                 String line;
                 System.out.println("以下是您部门里没有成功或待处理的请假申请：");
-                System.out.println("序号--------员工工号-----审批状态-----拒绝理由");
+                System.out.println("序号--------员工工号-----开始日期-----结束日期-----审批状态-----拒绝理由");
                 while (rs.next()){
                     line = rs.getString("lno")+"     ";
                     line += rs.getString("eno")+"        ";
@@ -314,9 +312,17 @@ public class DepartmentManager {
                     }
                     //把请假日期之内的每一天的考勤信息都设置成请假状态
                     int days = (int)(ledate.getTime() - lsdate.getTime())/86400000+1;
+                    String sql;
                     for(int i = 0;i < days;i++){
                         java.sql.Date tmp = new java.sql.Date((lsdate.getTime()+86400000*i)*1000);
-                        stmt.execute("INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 2 + "')");
+                        //判断这一天是否已经请假或出差
+                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                        rs = stmt.executeQuery(sql);
+                        if (rs.next())//next有值返回true
+                            sql = "UPDATE attendance SET astate ='"+ 2 + "' WHERE adate ="+tmp;
+                        else
+                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 2 + "')";
+                        stmt.execute(sql);
                     }
                     System.out.println();
                 }
@@ -328,7 +334,7 @@ public class DepartmentManager {
                         " WHERE dno = " + manager_dno+
                         " AND tstate = 1 ");//待审批或者被驳回的申请
                 System.out.println("以下是您部门里没有成功或待处理的出差申请：");
-                System.out.println("序号--------员工工号-----审批状态-----拒绝理由");
+                System.out.println("序号--------员工工号-----开始日期-----结束日期-----审批状态-----拒绝理由");
                 while (rs.next()){
                     line = rs.getString("tno")+"     ";
                     line += rs.getString("eno")+"        ";
@@ -366,9 +372,17 @@ public class DepartmentManager {
                     }
                     //把请假日期之内的每一天的考勤信息都设置成请假状态
                     int days = (int)(tedate.getTime() - tsdate.getTime())/86400000+1;
+                    String sql;
                     for(int i = 0;i < days;i++){
                         java.sql.Date tmp = new java.sql.Date((tsdate.getTime()+86400000*i)*1000);
-                        stmt.execute("INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 3 + "')");
+                        //判断这一天是否已经请假或出差
+                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                        rs = stmt.executeQuery(sql);
+                        if (rs.next())//next有值返回true
+                            sql = "UPDATE attendance SET astate ='"+ 3 + "' WHERE adate ="+tmp;
+                        else
+                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 3 + "')";
+                        stmt.execute(sql);
                     }
                     System.out.println();
                 }
