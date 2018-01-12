@@ -1,9 +1,6 @@
-package com.company;
-
 import java.sql.*;
 import java.util.Objects;
 import java.util.Scanner;
-
 
 public class Main {
     // JDBC driver name and database URL
@@ -11,8 +8,12 @@ public class Main {
 
     // Database credentials
     static final String USER = "root";
+<<<<<<< HEAD
     static final String PASS = "123456";
 
+=======
+    static final String PASS = "root";
+>>>>>>> 9f894986622667053937d460d39efa61a4596ee3
     public static void main(String[] args) {
         int id = 0;
         String passwd;
@@ -146,8 +147,12 @@ public class Main {
                         employee.run();
                         break;
                     case 2:
+                        DepartmentManager departmentManager = new DepartmentManager(id,stmt);
+                        departmentManager.run();
                         break;
                     case 3:
+                        PersonnelManager personnelManager = new PersonnelManager(id,stmt);
+                        personnelManager.run();
                         break;
                     case 4:
                         Administrator administrator = new Administrator(id, stmt);
