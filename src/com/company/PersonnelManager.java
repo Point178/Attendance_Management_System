@@ -1,5 +1,3 @@
-package com.company;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
@@ -327,7 +325,13 @@ public class PersonnelManager {
                     System.out.println(days);
                     for(int i = 0;i < days;i++){
                         java.sql.Date tmp = new java.sql.Date((lsdate.getTime()+86400000*i)*1000);
-                        sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+mno + "', '" + tmp + "', '" + 2 + "')";
+                        //判断这一天是否已经请假或出差
+                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                        rs = stmt.executeQuery(sql);
+                        if (rs.next())//next有值返回true
+                            sql = "UPDATE attendance SET astate ='"+ 2 + "' WHERE adate ="+tmp;
+                        else
+                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+mno + "', '" + tmp + "', '" + 2 + "')";
                         stmt.execute(sql);
                     }
                     System.out.println();
@@ -358,7 +362,7 @@ public class PersonnelManager {
                         " AND eno = " + mno +
                         " AND 'checktrip.tstate' = 1 ");
                 System.out.println("以下是 "+dname+" 部门主管待处理的出差申请：");
-                System.out.println("序号-----主管工号-----审批状态-----拒绝理由");
+                System.out.println("序号--------主管工号-----开始日期-----结束日期-----审批状态-----拒绝理由");
                 while (rs.next()){
                     line = rs.getString("tno");
                     line += mno;
@@ -406,7 +410,13 @@ public class PersonnelManager {
                     int days = (int)(tedate.getTime() - tsdate.getTime())/86400000+1;
                     for(int i = 0;i < days;i++){
                         java.sql.Date tmp = new java.sql.Date((tsdate.getTime()+86400000*i)*1000);
-                        sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+dno + "', '" + tmp + "', '" + 3 + "')";
+                        //判断这一天是否已经请假或出差
+                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                        rs = stmt.executeQuery(sql);
+                        if (rs.next())//next有值返回truex
+                            sql = "UPDATE attendance SET astate ='"+ 3 + "' WHERE adate ="+tmp;
+                        else
+                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+mno + "', '" + tmp + "', '" + 3 + "')";
                         stmt.execute(sql);
                     }
                     System.out.println();
@@ -431,4 +441,3 @@ public class PersonnelManager {
         stmt.executeUpdate(sql);
     }
 }
-
