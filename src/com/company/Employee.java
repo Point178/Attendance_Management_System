@@ -182,7 +182,7 @@ public class Employee {
         } while (!Objects.equals(passwd, in.nextLine()));
 
         //update database
-        String sql = "update employee set password='" + passwd + "' where eno='" + id+"'";
+        String sql = "update employee set password='" + passwd + "' where eno='" + id + "'";
         stmt.execute(sql);
         System.out.println("修改密码成功!");
 
@@ -191,7 +191,7 @@ public class Employee {
         java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
         String nowTime = f.format(date);
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'modify_user')";
+        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'modify_user')";
         stmt.executeUpdate(sql);
     }
 
@@ -235,7 +235,7 @@ public class Employee {
                 java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
                 String nowTime = f.format(date);
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'submit_trip')";
+                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_trip')";
                 stmt.executeUpdate(sql);
             } else if (Objects.equals(input, "2")) { //查询/修改出差申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
@@ -345,7 +345,7 @@ public class Employee {
                                             java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
                                             String nowTime = f.format(date);
                                             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'submit_trip')";
+                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_trip')";
                                             stmt.executeUpdate(sql);
                                             break;
                                         default:
@@ -412,7 +412,7 @@ public class Employee {
                 java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
                 String nowTime = f.format(date);
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'submit_leave')";
+                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_leave')";
                 stmt.executeUpdate(sql);
             } else if (Objects.equals(input, "2")) { //查询/修改请假申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
@@ -534,7 +534,7 @@ public class Employee {
                                             java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
                                             String nowTime = f.format(date);
                                             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'submit_leave')";
+                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_leave')";
                                             stmt.executeUpdate(sql);
                                             break;
                                         default:
@@ -558,59 +558,60 @@ public class Employee {
         } while (!legalinput);
     }
 
-    void searchAttendance() throws Exception{
+    void searchAttendance() throws Exception {
         System.out.println("请选择查询依据：1.日期范围  2.迟到  3.早退  4.迟到早退  5.旷班  6.请假  7.出差  8. 正常上班  9.全部");
         Scanner in = new Scanner(System.in);
         String sql;
-        switch(Integer.parseInt(in.nextLine())){
+        switch (Integer.parseInt(in.nextLine())) {
             case 1:
                 System.out.println("请输入日期范围 显示顺序：（例：2018-01-01 2018-01-02 desc）");
                 String[] parameter = in.nextLine().split(" ");
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
                         "from attendance, vacation " +
-                        "where eno = '"+id+"' and adate < '"+parameter[1]+"' and adate > '"+parameter[0] +"' and vacation.vdate = attendance.adate order by adate "+parameter[2];
+                        "where eno = '" + id + "' and adate < '" + parameter[1] + "' and adate > '" + parameter[0] + "' and vacation.vdate = attendance.adate order by adate " + parameter[2];
                 System.out.println(sql);
                 break;
             case 2:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and `leave` = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 3:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and arrive = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and arrive = '0' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 4:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and `leave` = '0' and arrive = '0' and vacation.vdate = attendance.adate order by attendance.adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and arrive = '0' and vacation.vdate = attendance.adate order by attendance.adate desc";
                 break;
             case 5:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and absent = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and absent = '0' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 6:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and astate = '2' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and astate = '2' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 7:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and astate = '3' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and astate = '3' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 8:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and `leave` = '1' and arrive = '1' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '1' and arrive = '1' and vacation.vdate = attendance.adate order by adate desc";
                 break;
             case 9:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '"+id+"' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and vacation.vdate = attendance.adate order by adate desc";
                 break;
-            default:return;
+            default:
+                return;
         }
 
         //打印结果
         ResultSet rs = stmt.executeQuery(sql);
         java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
         System.out.println("   日期     签到时间   签退时间   状态 ");
-        while(rs.next()){
+        while (rs.next()) {
             java.sql.Date date = rs.getDate("adate");
             int astate = rs.getInt("astate");
             int arrive = rs.getInt("arrive");
@@ -620,7 +621,7 @@ public class Employee {
             int absent = rs.getInt("absent");
             int vacation = rs.getInt("vacation");
 
-            if(!date.after(sqlDate)) {
+            if (!date.after(sqlDate)) {
                 if (intime == null) {
                     intime = "        ";
                 }
@@ -628,30 +629,30 @@ public class Employee {
                     outtime = "        ";
                 }
                 String thisState;
-                if (astate == 2){
+                if (astate == 2) {
                     thisState = "  出差 ";
-                }else if(astate == 3){
+                } else if (astate == 3) {
                     thisState = "  休假 ";
-                }else{
-                    if(vacation == 1){
+                } else {
+                    if (vacation == 1) {
                         thisState = "  公休 ";
-                    }else{
-                        if(absent == 0){
+                    } else {
+                        if (absent == 0) {
                             thisState = "  旷班 ";
-                        }else {
-                            if((arrive==0) && (leave==0)){
+                        } else {
+                            if ((arrive == 0) && (leave == 0)) {
                                 thisState = "迟到早退";
-                            }else if((arrive == 1) && (leave == 1)){
+                            } else if ((arrive == 1) && (leave == 1)) {
                                 thisState = "正常出勤";
-                            }else if(arrive == 0){
+                            } else if (arrive == 0) {
                                 thisState = "  早退 ";
-                            }else{
+                            } else {
                                 thisState = "  迟到 ";
                             }
                         }
                     }
                 }
-                System.out.println(date+" "+intime+" "+outtime+" "+thisState);
+                System.out.println(date + " " + intime + " " + outtime + " " + thisState);
             }
         }
         System.out.println();
@@ -676,7 +677,7 @@ public class Employee {
         System.out.println("签到成功！您的状态是 " + state);
 
         //write log
-        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'checkin')";
+        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'checkin')";
         stmt.executeUpdate(sql);
     }
 
@@ -699,7 +700,7 @@ public class Employee {
         System.out.println("签退成功！您的状态是 " + state);
 
         //write log
-        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('"+sqlDate+"', '"+nowTime +"', '"+id+"' ,'checkout')";
+        sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'checkout')";
         stmt.executeUpdate(sql);
     }
 }
