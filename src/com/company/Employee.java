@@ -212,7 +212,7 @@ public class Employee {
                 String edate = in.nextLine();
                 int tno = Integer.parseInt(((id % 10000) + sdate).replace("-", ""));
 
-                String sql = "SELECT dno FROM belong WHERE eno=" + id;
+                String sql = "SELECT dno from belong WHERE eno=" + id;
                 ResultSet rs = stmt.executeQuery(sql);
                 int dno;
                 if (rs.next()) {
@@ -221,22 +221,28 @@ public class Employee {
                     dno = 0;
                 }
 
-                sql = "INSERT INTO trip(tno, eno, tsdate, tedate, ttype, treason) " +
-                        "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(sdate) + "', '" + java.sql.Date.valueOf(edate) + "', '" + type + "', '" + reason + "')";
-                stmt.executeUpdate(sql);
+                sql = "SELECT tno FROM trip WHERE tno = '"+tno+"'";
+                rs = stmt.executeQuery(sql);
+                if (!rs.next()) {
+                    sql = "INSERT INTO trip(tno, eno, tsdate, tedate, ttype, treason) " +
+                            "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(sdate) + "', '" + java.sql.Date.valueOf(edate) + "', '" + type + "', '" + reason + "')";
+                    stmt.executeUpdate(sql);
 
-                sql = "INSERT INTO checktrip(dno, tno, tstate, trefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
-                stmt.executeUpdate(sql);
+                    sql = "INSERT INTO checktrip(dno, tno, tstate, trefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
+                    stmt.executeUpdate(sql);
 
-                System.out.println("新出差申请提交成功！");
+                    System.out.println("新出差申请提交成功！");
 
-                // 写入日志
-                Date date = new java.util.Date();
-                java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
-                String nowTime = f.format(date);
-                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_trip')";
-                stmt.executeUpdate(sql);
+                    // 写入日志
+                    Date date = new java.util.Date();
+                    java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
+                    String nowTime = f.format(date);
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_trip')";
+                    stmt.executeUpdate(sql);
+                } else {
+                    System.out.println("申请提交失败!此时间范围已经存在出差申请!");
+                }
             } else if (Objects.equals(input, "2")) { //查询/修改出差申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
                 int searchType = Integer.parseInt(in.nextLine());
@@ -314,7 +320,7 @@ public class Employee {
                                 String treason = rs.getString("treason");
                                 boolean modifying = true;
                                 while (modifying) {
-                                    System.out.println("请选择具体的修改操作：1. 开始日期 2. 结束日期 3. 出差类型 4. 具体理由 5. 保存 6. 退出修改");
+                                    System.out.println("请选择具体的修改操作：1. 开始日期 2. 结束日期 3. 出差类型 4. 具体理由 5. 保存 6. 删除申请  7. 退出修改");
                                     switch (in.nextLine()) {
                                         case "1":
                                             System.out.println("请输入出差开始日期：（格式：YYYY-MM-DD）");
@@ -333,20 +339,47 @@ public class Employee {
                                             treason = in.nextLine();
                                             break;
                                         case "5":
-                                            sql = "update trip set tsdate='" + tsdate + "' ,tedate='" + tedate + "' ,ttype='" + ttype + "' ,treason='" + treason + "' where tno='" + no + "'";
-                                            stmt.executeUpdate(sql);
+                                            int tno = Integer.parseInt(((id % 10000) + tsdate).replace("-", ""));
+                                            if(tno != no){
+                                                sql = "SELECT * FROM trip WHERE tno = '"+tno+"'";
+                                                rs = stmt.executeQuery(sql);
+                                                if (!rs.next()) {
+                                                    sql = "SELECT dno FROM checktrip WHERE tno = '"+no+"'";
+                                                    rs = stmt.executeQuery(sql);
+                                                    rs.next();
+                                                    int dno = rs.getInt("dno");
 
-                                            sql = "update checktrip set tstate='1' ,trefuse=null where tno='" + no + "'";
-                                            stmt.executeUpdate(sql);
-                                            System.out.println("修改已保存！");
+                                                    sql = "DELETE FROM checktrip where tno = '"+no+"'";
+                                                    stmt.executeUpdate(sql);
+                                                    sql = "DELETE from trip where tno='"+no+"'";
+                                                    stmt.executeUpdate(sql);
 
-                                            // 写入日志
-                                            Date date = new java.util.Date();
-                                            java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
-                                            String nowTime = f.format(date);
-                                            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_trip')";
+                                                    sql = "INSERT INTO trip(tno, eno, tsdate, tedate, ttype, treason) " +
+                                                            "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(tsdate) + "', '" + java.sql.Date.valueOf(tedate) + "', '" + ttype + "', '" + treason + "')";
+                                                    stmt.executeUpdate(sql);
+
+                                                    sql = "INSERT INTO checktrip(dno, tno, tstate, trefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
+                                                    stmt.executeUpdate(sql);
+
+                                                    System.out.println("修改已保存！");
+                                                }else{
+                                                    System.out.println("修改提交失败！此时间段已存在其他出差申请！");
+                                                }
+                                            }else {
+                                                    sql = "update trip set tsdate='" + tsdate + "' ,tedate='" + tedate + "' ,ttype='" + ttype + "' ,treason='" + treason + "' where tno='" + no + "'";
+                                                    stmt.executeUpdate(sql);
+
+                                                    sql = "update checktrip set tstate='1' ,trefuse=null where tno='" + no + "'";
+                                                    stmt.executeUpdate(sql);
+                                                    System.out.println("修改已保存！");
+                                            }
+                                            break;
+                                        case "6":
+                                            sql = "DELETE FROM checktrip where tno = '"+no+"'";
                                             stmt.executeUpdate(sql);
+                                            sql = "DELETE from trip where tno='"+no+"'";
+                                            stmt.executeUpdate(sql);
+                                            System.out.println("请求已删除！");
                                             break;
                                         default:
                                             modifying = false;
@@ -397,23 +430,29 @@ public class Employee {
                     dno = 0;
                 }
 
-                sql = "INSERT INTO `leave`(lno, eno, lsdate, ledate, ltype, lreason) " +
-                        "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(sdate) + "', '" + java.sql.Date.valueOf(edate) + "', '" + type + "', '" + reason + "')";
+                sql = "SELECT lno FROM `leave` WHERE lno = '"+tno+"'";
+                rs = stmt.executeQuery(sql);
+                if(!rs.next()) {
+                    sql = "INSERT INTO `leave`(lno, eno, lsdate, ledate, ltype, lreason) " +
+                            "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(sdate) + "', '" + java.sql.Date.valueOf(edate) + "', '" + type + "', '" + reason + "')";
 
-                stmt.executeUpdate(sql);
+                    stmt.executeUpdate(sql);
 
-                sql = "INSERT INTO checkleave(dno, lno, lstate, lrefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
-                stmt.executeUpdate(sql);
+                    sql = "INSERT INTO checkleave(dno, lno, lstate, lrefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
+                    stmt.executeUpdate(sql);
 
-                System.out.println("新请假申请提交成功！");
+                    System.out.println("新请假申请提交成功！");
 
-                // 写入日志
-                Date date = new java.util.Date();
-                java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
-                String nowTime = f.format(date);
-                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_leave')";
-                stmt.executeUpdate(sql);
+                    // 写入日志
+                    Date date = new java.util.Date();
+                    java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
+                    String nowTime = f.format(date);
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_leave')";
+                    stmt.executeUpdate(sql);
+                }else{
+                    System.out.println("请假请求提交失败！此时间段已存在请假申请！");
+                }
             } else if (Objects.equals(input, "2")) { //查询/修改请假申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
                 int searchType = Integer.parseInt(in.nextLine());
@@ -434,7 +473,7 @@ public class Employee {
                 } else if (searchType == 3) { //按审核状态
                     System.out.println("请输入查询状态值：1. 待审批 2. 已通过 3. 未通过 4. 已放弃");
                     int searchstate = Integer.parseInt(in.nextLine());
-                    sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
+                    sql = "SELECT lno,lsdate,ledate,ltype,lstate from `leave` natural join checkleave " +
                             "WHERE eno='" + id + "' and lstate='" + searchstate + "'";
                 } else { //按请假类型
                     System.out.println("请输入查询类型：1.事假  2.病假  3.产假  4.婚假  5.其他");
@@ -503,7 +542,7 @@ public class Employee {
                                 String treason = rs.getString("lreason");
                                 boolean modifying = true;
                                 while (modifying) {
-                                    System.out.println("请选择具体的修改操作：1. 开始日期 2. 结束日期 3. 请假类型 4. 具体理由 5. 保存 6. 退出修改");
+                                    System.out.println("请选择具体的修改操作：1. 开始日期 2. 结束日期 3. 请假类型 4. 具体理由 5. 保存 6. 删除申请  7. 退出修改");
                                     switch (in.nextLine()) {
                                         case "1":
                                             System.out.println("请输入请假开始日期：（格式：YYYY-MM-DD）");
@@ -522,20 +561,48 @@ public class Employee {
                                             treason = in.nextLine();
                                             break;
                                         case "5":
-                                            sql = "update `leave` set lsdate='" + tsdate + "' ,ledate='" + tedate + "' ,ltype='" + ttype + "' ,lreason='" + treason + "' where lno='" + no + "'";
-                                            stmt.executeUpdate(sql);
+                                            int tno = Integer.parseInt(((id % 10000) + tsdate).replace("-", ""));
+                                            if(tno != no) {
+                                                sql = "SELECT * FROM `leave` WHERE lno = '" + tno + "'";
+                                                rs = stmt.executeQuery(sql);
+                                                if (!rs.next()) {
+                                                    sql = "SELECT dno FROM checkleave WHERE lno = '" + no + "'";
+                                                    rs = stmt.executeQuery(sql);
+                                                    rs.next();
+                                                    int dno = rs.getInt("dno");
 
-                                            sql = "update checkleave set lstate='1' ,lrefuse=null where lno='" + no + "'";
-                                            stmt.executeUpdate(sql);
-                                            System.out.println("修改已保存！");
+                                                    sql = "DELETE  checkleave where lno = '" + no + "'";
+                                                    stmt.executeUpdate(sql);
+                                                    sql = "DELETE from `leave` where lno='" + no + "'";
+                                                    stmt.executeUpdate(sql);
 
-                                            // 写入日志
-                                            Date date = new java.util.Date();
-                                            java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("HH:mm:ss");
-                                            String nowTime = f.format(date);
-                                            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                                            sql = "insert into log(ldate, ltime, eno, operation) VALUES ('" + sqlDate + "', '" + nowTime + "', '" + id + "' ,'submit_leave')";
+                                                    sql = "INSERT INTO `leave`(lno, eno, lsdate, ledate, ltype, lreason) " +
+                                                            "VALUES ('" + tno + "', '" + id + "', '" + java.sql.Date.valueOf(tsdate) + "', '" + java.sql.Date.valueOf(tedate) + "', '" + ttype + "', '" + treason + "')";
+                                                    stmt.executeUpdate(sql);
+
+                                                    sql = "INSERT INTO checkleave(dno, lno, lstate, lrefuse) VALUES ('" + dno + "', '" + tno + "', '1', null)";
+                                                    stmt.executeUpdate(sql);
+
+                                                    System.out.println("修改已保存！");
+                                                } else {
+                                                    System.out.println("修改提交失败！此时间段已存在其他出差申请！");
+                                                }
+                                            }else {
+                                                sql = "update `leave` set lsdate='" + tsdate + "' ,ledate='" + tedate + "' ,ltype='" + ttype + "' ,lreason='" + treason + "' where lno='" + no + "'";
+                                                stmt.executeUpdate(sql);
+
+                                                sql = "update checkleave set lstate='1' ,lrefuse=null where lno='" + no + "'";
+                                                stmt.executeUpdate(sql);
+                                                System.out.println("修改已保存！");
+                                            }
+                                            break;
+
+                                        case "6":
+                                            sql = "DELETE checkleave where lno = '" + no + "'";
                                             stmt.executeUpdate(sql);
+                                            sql = "DELETE `leave` from `leave` where lno='" + no + "'";
+                                            stmt.executeUpdate(sql);
+                                            System.out.println("申请已删除！");
                                             break;
                                         default:
                                             modifying = false;
@@ -621,7 +688,7 @@ public class Employee {
             int absent = rs.getInt("absent");
             int vacation = rs.getInt("vacation");
 
-            if (!date.after(sqlDate)) {
+            if (sqlDate.before(date)) {
                 if (intime == null) {
                     intime = "        ";
                 }
@@ -637,19 +704,19 @@ public class Employee {
                     if (vacation == 1) {
                         thisState = "  公休 ";
                     } else {
-                        if (absent == 0) {
-                            thisState = "  旷班 ";
-                        } else {
-                            if ((arrive == 0) && (leave == 0)) {
-                                thisState = "迟到早退";
-                            } else if ((arrive == 1) && (leave == 1)) {
-                                thisState = "正常出勤";
-                            } else if (arrive == 0) {
-                                thisState = "  早退 ";
+                            if (absent == 0) {
+                                thisState = "  旷班 ";
                             } else {
-                                thisState = "  迟到 ";
+                                if ((arrive == 0) && (leave == 0)) {
+                                    thisState = "迟到早退";
+                                } else if ((arrive == 1) && (leave == 1)) {
+                                    thisState = "正常出勤";
+                                } else if (arrive == 0) {
+                                    thisState = "  早退 ";
+                                } else {
+                                    thisState = "  迟到 ";
+                                }
                             }
-                        }
                     }
                 }
                 System.out.println(date + " " + intime + " " + outtime + " " + thisState);
