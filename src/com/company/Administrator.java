@@ -32,6 +32,7 @@ public class Administrator {
                         break;
                     case "3":
                         manageLog();
+                        break;
                     case "4":
                         setSystem();
                         break;
@@ -92,7 +93,7 @@ public class Administrator {
         int usrId;
         String usrName;
         int usrRole;
-        System.out.println("请输入用户工号、用户名、用户身份（数字表示）");
+        System.out.println("请输入用户工号、用户名、用户身份（数字表示 1普通员工，2部门经理，3人事主管，4系统管理员，中间用空格隔开）");
         Scanner scanner = new Scanner(System.in);
         usrId = Integer.parseInt(scanner.next());
         usrName = scanner.next();
@@ -109,19 +110,24 @@ public class Administrator {
         String sql = null;
         switch (usrRole) {
             case 1:
-                System.out.println("请输入部门编号");
+                System.out.println("请输入部门名");
                 scanner = new Scanner(System.in);
-                int dno = Integer.parseInt(scanner.next());
-                rs = stmt.executeQuery("SELECT * FROM department WHERE dno = " + dno);
+                String dname = scanner.next();
+                rs = stmt.executeQuery("SELECT * FROM department WHERE dname = '" + dname + "'");
                 count = 0;
                 while (rs.next()) {
                     count = rs.getInt(1);
                 }
                 if (count == 0) {
-                    System.out.println("不存在部门编号为" + dno + "的部门！");
+                    System.out.println("不存在部门编号为" + dname + "的部门！");
                     return;
                 }
-                sql = "INSERT INTO belong(dno, eno) VALUES ('" + dno + "',' " + usrId + "')";
+                rs = stmt.executeQuery("SELECT * FROM department WHERE dname = '" + dname + "'");
+                int dno = 0;
+                while (rs.next()) {
+                    dno = rs.getInt(1);
+                }
+                sql = "INSERT INTO belong(dno, eno) VALUES (" + dno + ",' " + usrId + "')";
                 break;
             case 2:
                 System.out.println("每个部门只能有一个部门经理！请在增加部门时增加部门经理。");
@@ -224,6 +230,8 @@ public class Administrator {
         System.out.println("请选择按工号查询-1/按姓名查询-2");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
+        int eno = 0;
+        String ename = null;
         switch (choice) {
             case 1:
                 System.out.println("请输入用户工号");
@@ -239,7 +247,7 @@ public class Administrator {
                     return;
                 }
                 rs = stmt.executeQuery("SELECT * FROM employee WHERE eno=" + usrId);
-
+                eno = usrId;
                 break;
             case 2:
                 System.out.println("请输入用户姓名");
@@ -255,13 +263,18 @@ public class Administrator {
                     return;
                 }
                 rs = stmt.executeQuery("SELECT * FROM employee WHERE ename='" + name + "'");
+                /*while (rs.next()){
+                    eno=rs.getInt(1);
+                }*/
+                ename = name;
                 break;
             default:
                 System.out.println("请输入1/2");
                 return;
         }
         while (rs.next()) {
-            System.out.println("工号: " + rs.getString(1));
+            eno = rs.getInt(1);
+            System.out.println("工号: " + eno);
             System.out.println("姓名: " + rs.getString(2));
             System.out.println("密码: " + rs.getString(3));
             int role = rs.getInt(4);
@@ -269,9 +282,33 @@ public class Administrator {
             switch (role) {
                 case 1:
                     roleStr = "普通员工";
+                    int dno = 0;
+                    rs = stmt.executeQuery("SELECT dno FROM belong WHERE eno = '" + eno + "'");
+
+                    while (rs.next()) {
+                        dno = rs.getInt(1);
+                    }
+                    rs = stmt.executeQuery("SELECT * FROM department WHERE dno = '" + dno + "'");
+                    String dname = null;
+                    while (rs.next()) {
+                        dname = rs.getString(2);
+                    }
+                    System.out.println("部门：" + dname + "  ");
                     break;
                 case 2:
                     roleStr = "部门经理";
+                    dno = 0;
+                    rs = stmt.executeQuery("SELECT dno FROM belong WHERE eno = '" + eno + "'");
+
+                    while (rs.next()) {
+                        dno = rs.getInt(1);
+                    }
+                    rs = stmt.executeQuery("SELECT * FROM department WHERE dno = '" + dno + "'");
+                    dname = null;
+                    while (rs.next()) {
+                        dname = rs.getString(2);
+                    }
+                    System.out.println("部门：" + dname + "  ");
                     break;
                 case 3:
                     roleStr = "人事主管";
@@ -326,7 +363,7 @@ public class Administrator {
                     System.out.println("不存在名字为" + name + "的用户！");
                     return;
                 }
-                rs = stmt.executeQuery("SELECT * FROM attendance WHERE eno=" + eno);
+                rs = stmt.executeQuery("SELECT * FROM attendance WHERE eno='" + eno + "'");
 
                 break;
             default:
@@ -334,10 +371,10 @@ public class Administrator {
                 return;
         }
         while (rs.next()) {
-            System.out.println("工号: " + rs.getString(1));
-            System.out.println("日期: " + rs.getDate(2));
-            System.out.println("签到时间: " + rs.getTime(3));
-            System.out.println("签退时间: " + rs.getTime(4));
+            System.out.print("工号: " + rs.getString(1) + "  ");
+            System.out.print("日期: " + rs.getDate(2) + "  ");
+            System.out.print("签到时间: " + rs.getTime(3) + "  ");
+            System.out.print("签退时间: " + rs.getTime(4) + "  ");
             String state = null;
             if (rs.getInt(8) == 2) {
                 state = "请假";
@@ -352,10 +389,12 @@ public class Administrator {
                     }
                     if (rs.getInt(6) == 0) {
                         state += "早退";
+                    } else {
+                        state = "正常上班";
                     }
                 }
             }
-            System.out.println("状态： " + state);
+            System.out.print("状态： " + state + "\n");
             System.out.println();
         }
     }
@@ -543,7 +582,7 @@ public class Administrator {
         java.util.Date d = format.parse(input);
         java.sql.Time time = new java.sql.Time(d.getTime());
 
-        String sql = "update time SET " + choice + "='" + time + "'";
+        String sql = "UPDATE time SET " + choice + "='" + time + "'";
         stmt.execute(sql);
         System.out.println(out + "修改成功!");
     }
@@ -614,7 +653,19 @@ public class Administrator {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date d = format.parse(input);
         java.sql.Date vdate = new java.sql.Date(d.getTime());
-        String sql = "update vacation SET vacation ='" + choice + "'WHERE vdate = '" + vdate + "'";
+        ResultSet rs = null;
+        rs = stmt.executeQuery("SELECT * FROM vacation WHERE vdate ='" + vdate + "'");
+        int count = 0;
+        while (rs.next()) {
+            count = rs.getInt(1);
+        }
+        String sql;
+        if (count == 0) {
+            sql = "INSERT INTO vacation(vdate, vacation) VALUES ('" + vdate + "', '" + choice + "')";
+
+        } else {
+            sql = "UPDATE vacation SET vacation ='" + choice + "'WHERE vdate = '" + vdate + "'";
+        }
         stmt.execute(sql);
         System.out.println(out + "设置成功!");
     }
