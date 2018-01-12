@@ -164,7 +164,17 @@ public class Administrator {
             return;
         }
         String sql = "DELETE FROM employee WHERE eno=" + usrId;
+
         stmt.executeUpdate(sql);
+        rs = stmt.executeQuery("SELECT * FROM belong WHERE eno =" + usrId);
+        count = 0;
+        while (rs.next()) {
+            count = rs.getInt(1);
+        }
+        if (count > 0) {
+            stmt.executeUpdate("DELETE FROM belong WHERE eno=" + usrId);
+
+        }
         System.out.println("删除用户成功！");
         writelog("del_user");
     }
