@@ -218,7 +218,8 @@ public class Employee {
                 if (rs.next()) {
                     dno = rs.getInt("dno");
                 } else {
-                    dno = 0;
+                    System.out.println("您无需申请出差！");
+                    return;
                 }
 
                 sql = "SELECT tno FROM trip WHERE tno = '"+tno+"'";
@@ -427,7 +428,8 @@ public class Employee {
                 if (rs.next()) {
                     dno = rs.getInt("dno");
                 } else {
-                    dno = 0;
+                    System.out.println("您无需请假！");
+                    return ;
                 }
 
                 sql = "SELECT lno FROM `leave` WHERE lno = '"+tno+"'";
