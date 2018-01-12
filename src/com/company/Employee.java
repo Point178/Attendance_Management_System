@@ -1,5 +1,3 @@
-package com.company;
-
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -245,7 +243,7 @@ public class Employee {
                     System.out.println("申请提交失败!此时间范围已经存在出差申请!");
                 }
             } else if (Objects.equals(input, "2")) { //查询/修改出差申请
-                System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
+                System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型  5.全部");
                 int searchType = Integer.parseInt(in.nextLine());
 
                 //搜索结果
@@ -266,11 +264,14 @@ public class Employee {
                     int searchstate = Integer.parseInt(in.nextLine());
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
                             "WHERE eno='" + id + "' and tstate='" + searchstate + "'";
-                } else { //按出差类型
+                } else if(searchType == 4){ //按出差类型
                     System.out.println("请输入查询类型：1. 公司指派 2. 个人申请");
                     int searchtype = Integer.parseInt(in.nextLine());
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
                             "WHERE eno='" + id + "' and ttype='" + searchtype + "'";
+                } else {
+                    sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
+                            "WHERE eno='" + id + "'";
                 }
 
                 //显示结果
@@ -367,12 +368,12 @@ public class Employee {
                                                     System.out.println("修改提交失败！此时间段已存在其他出差申请！");
                                                 }
                                             }else {
-                                                    sql = "update trip set tsdate='" + tsdate + "' ,tedate='" + tedate + "' ,ttype='" + ttype + "' ,treason='" + treason + "' where tno='" + no + "'";
-                                                    stmt.executeUpdate(sql);
+                                                sql = "update trip set tsdate='" + tsdate + "' ,tedate='" + tedate + "' ,ttype='" + ttype + "' ,treason='" + treason + "' where tno='" + no + "'";
+                                                stmt.executeUpdate(sql);
 
-                                                    sql = "update checktrip set tstate='1' ,trefuse=null where tno='" + no + "'";
-                                                    stmt.executeUpdate(sql);
-                                                    System.out.println("修改已保存！");
+                                                sql = "update checktrip set tstate='1' ,trefuse=null where tno='" + no + "'";
+                                                stmt.executeUpdate(sql);
+                                                System.out.println("修改已保存！");
                                             }
                                             break;
                                         case "6":
@@ -456,7 +457,7 @@ public class Employee {
                     System.out.println("请假请求提交失败！此时间段已存在请假申请！");
                 }
             } else if (Objects.equals(input, "2")) { //查询/修改请假申请
-                System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型");
+                System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型  5. 全部");
                 int searchType = Integer.parseInt(in.nextLine());
 
                 //搜索结果
@@ -477,11 +478,14 @@ public class Employee {
                     int searchstate = Integer.parseInt(in.nextLine());
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate from `leave` natural join checkleave " +
                             "WHERE eno='" + id + "' and lstate='" + searchstate + "'";
-                } else { //按请假类型
+                } else if(searchType == 4){ //按请假类型
                     System.out.println("请输入查询类型：1.事假  2.病假  3.产假  4.婚假  5.其他");
                     int searchtype = Integer.parseInt(in.nextLine());
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
                             "WHERE eno='" + id + "' and ltype='" + searchtype + "'";
+                } else{
+                    sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
+                            "WHERE eno='" + id + "'";
                 }
 
                 //显示结果
@@ -706,19 +710,19 @@ public class Employee {
                     if (vacation == 1) {
                         thisState = "  公休 ";
                     } else {
-                            if (absent == 0) {
-                                thisState = "  旷班 ";
+                        if (absent == 0) {
+                            thisState = "  旷班 ";
+                        } else {
+                            if ((arrive == 0) && (leave == 0)) {
+                                thisState = "迟到早退";
+                            } else if ((arrive == 1) && (leave == 1)) {
+                                thisState = "正常出勤";
+                            } else if (arrive == 0) {
+                                thisState = "  早退 ";
                             } else {
-                                if ((arrive == 0) && (leave == 0)) {
-                                    thisState = "迟到早退";
-                                } else if ((arrive == 1) && (leave == 1)) {
-                                    thisState = "正常出勤";
-                                } else if (arrive == 0) {
-                                    thisState = "  早退 ";
-                                } else {
-                                    thisState = "  迟到 ";
-                                }
+                                thisState = "  迟到 ";
                             }
+                        }
                     }
                 }
                 System.out.println(date + " " + intime + " " + outtime + " " + thisState);
