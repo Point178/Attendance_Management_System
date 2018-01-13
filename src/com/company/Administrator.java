@@ -375,7 +375,7 @@ public class Administrator {
             System.out.print("日期: " + rs.getDate(2) + "  ");
             System.out.print("签到时间: " + rs.getTime(3) + "  ");
             System.out.print("签退时间: " + rs.getTime(4) + "  ");
-            String state = null;
+            String state = "";
             if (rs.getInt(8) == 2) {
                 state = "请假";
             } else if (rs.getInt(8) == 3) {
