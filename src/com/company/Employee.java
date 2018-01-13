@@ -247,6 +247,8 @@ public class Employee {
             } else if (Objects.equals(input, "2")) { //查询/修改出差申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型  5. 全部");
                 int searchType = Integer.parseInt(in.nextLine());
+                System.out.println("请选择按日期排序顺序：desc asc");
+                String range = in.nextLine();
 
                 //搜索结果
                 String sql;
@@ -255,25 +257,25 @@ public class Employee {
                     String[] parameter = in.nextLine().split(" ");
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
                             "WHERE eno='" + id + "' and tsdate>'" + parameter[0] + "' and tedate<'" + parameter[1] +
-                            "' ORDER BY tsdate " + parameter[2];
+                            "' ORDER BY tsdate " + range;
                 } else if (searchType == 2) { //按天数
                     System.out.println("请输入出差天数：（例：>2）");
                     String duration = in.nextLine();
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
-                            "WHERE eno='" + id + "' and tedate - tsdate " + duration + "";
+                            "WHERE eno='" + id + "' and tedate - tsdate " + duration + " ORDER BY tsdate "+range;
                 } else if (searchType == 3) { //按审核状态
-                    System.out.println("请输入查询状态值：1. 待审批 2. 已通过 3. 未通过 4. 已放弃");
+                    System.out.println("请输入查询状态值：1. 待审批 2. 已通过 3. 未通过");
                     int searchstate = Integer.parseInt(in.nextLine());
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
-                            "WHERE eno='" + id + "' and tstate='" + searchstate + "'";
+                            "WHERE eno='" + id + "' and tstate='" + searchstate + "' order by tsdate "+range;
                 } else if(searchType == 4){ //按出差类型
                     System.out.println("请输入查询类型：1. 公司指派 2. 个人申请");
                     int searchtype = Integer.parseInt(in.nextLine());
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
-                            "WHERE eno='" + id + "' and ttype='" + searchtype + "'";
+                            "WHERE eno='" + id + "' and ttype='" + searchtype + "' order by tsdate "+range;
                 } else{
                     sql = "SELECT tno,tsdate,tedate,ttype,tstate FROM trip natural join checktrip " +
-                            "WHERE eno='" + id + "'";
+                            "WHERE eno='" + id + "' order by tsdate "+range;
                 }
 
                 //显示结果
@@ -285,7 +287,7 @@ public class Employee {
                     if (rs.getInt("ttype") == 1) {
                         output += "公司指派 ";
                     } else {
-                        output += "个人申请  ";
+                        output += "个人申请 ";
                     }
                     switch (rs.getInt("tstate")) {
                         case 1:
@@ -294,11 +296,9 @@ public class Employee {
                         case 2:
                             output += "已通过";
                             break;
-                        case 3:
+                        default:
                             output += "未通过";
                             break;
-                        case 4:
-                            output += "已放弃";
                     }
                     System.out.println(output);
                 }
@@ -461,6 +461,8 @@ public class Employee {
             } else if (Objects.equals(input, "2")) { //查询/修改请假申请
                 System.out.println("查询依据：1. 日期范围  2. 天数  3. 审核状态  4. 类型  5. 全部");
                 int searchType = Integer.parseInt(in.nextLine());
+                System.out.println("请输入按开始日期排序顺序：desc asc");
+                String range = in.nextLine();
 
                 //搜索结果
                 String sql;
@@ -469,25 +471,25 @@ public class Employee {
                     String[] parameter = in.nextLine().split(" ");
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
                             "WHERE eno='" + id + "' and lsdate>'" + parameter[0] + "' and ledate<'" + parameter[1] +
-                            "' ORDER BY lsdate " + parameter[2];
+                            "' ORDER BY lsdate " + range;
                 } else if (searchType == 2) { //按天数
                     System.out.println("请输入请假天数：（例：>2）");
                     String duration = in.nextLine();
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
-                            "WHERE eno='" + id + "' and ledate - lsdate " + duration;
+                            "WHERE eno='" + id + "' and ledate - lsdate " + duration+" order by "+range;
                 } else if (searchType == 3) { //按审核状态
-                    System.out.println("请输入查询状态值：1. 待审批 2. 已通过 3. 未通过 4. 已放弃");
+                    System.out.println("请输入查询状态值：1. 待审批 2. 已通过 3. 未通过");
                     int searchstate = Integer.parseInt(in.nextLine());
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate from `leave` natural join checkleave " +
-                            "WHERE eno='" + id + "' and lstate='" + searchstate + "'";
+                            "WHERE eno='" + id + "' and lstate='" + searchstate + "' order by "+range;
                 } else if(searchType == 4){ //按请假类型
                     System.out.println("请输入查询类型：1.事假  2.病假  3.产假  4.婚假  5.其他");
                     int searchtype = Integer.parseInt(in.nextLine());
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
-                            "WHERE eno='" + id + "' and ltype='" + searchtype + "'";
+                            "WHERE eno='" + id + "' and ltype='" + searchtype + "' order by "+range;
                 } else{
                     sql = "SELECT lno,lsdate,ledate,ltype,lstate FROM `leave` natural join checkleave " +
-                            "WHERE eno='" + id + "'";
+                            "WHERE eno='" + id + "' order by "+range;
                 }
 
                 //显示结果
@@ -520,11 +522,8 @@ public class Employee {
                         case 2:
                             output += "已通过";
                             break;
-                        case 3:
-                            output += "未通过";
-                            break;
                         default:
-                            output += "已放弃";
+                            output += "未通过";
                     }
                     System.out.println(output);
                 }
@@ -636,46 +635,48 @@ public class Employee {
         System.out.println("请选择查询依据：1.日期范围  2.迟到  3.早退  4.迟到早退  5.旷班  6.请假  7.出差  8. 正常上班  9.全部");
         Scanner in = new Scanner(System.in);
         String sql;
-        switch (Integer.parseInt(in.nextLine())) {
+        int searchType = Integer.parseInt(in.nextLine());
+        System.out.println("按日期排序，请输入排序顺序：desc asc");
+        String range = in.nextLine();
+        switch (searchType) {
             case 1:
-                System.out.println("请输入日期范围 显示顺序：（例：2018-01-01 2018-01-02 desc）");
+                System.out.println("请输入日期范围：（例：2018-01-01 2018-01-02）");
                 String[] parameter = in.nextLine().split(" ");
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
                         "from attendance, vacation " +
-                        "where eno = '" + id + "' and adate < '" + parameter[1] + "' and adate > '" + parameter[0] + "' and vacation.vdate = attendance.adate order by adate " + parameter[2];
-                System.out.println(sql);
+                        "where eno = '" + id + "' and adate < '" + parameter[1] + "' and adate > '" + parameter[0] + "' and vacation.vdate = attendance.adate order by adate " + range;
                 break;
             case 2:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 3:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and arrive = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and arrive = '0' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 4:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and arrive = '0' and vacation.vdate = attendance.adate order by attendance.adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '0' and arrive = '0' and vacation.vdate = attendance.adate order by attendance.adate "+range;
                 break;
             case 5:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and absent = '0' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and absent = '0' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 6:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and astate = '2' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and astate = '2' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 7:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and astate = '3' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and astate = '3' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 8:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and `leave` = '1' and arrive = '1' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and `leave` = '1' and arrive = '1' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             case 9:
                 sql = "select adate, intime, outtime, arrive, `leave`, absent, astate, vacation " +
-                        "from attendance, vacation where eno = '" + id + "' and vacation.vdate = attendance.adate order by adate desc";
+                        "from attendance, vacation where eno = '" + id + "' and vacation.vdate = attendance.adate order by adate "+range;
                 break;
             default:
                 return;
