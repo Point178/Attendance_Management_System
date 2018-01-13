@@ -377,14 +377,14 @@ public class Employee {
                                                     stmt.executeUpdate(sql);
                                                     System.out.println("修改已保存！");
                                             }
-                                            break;
+                                            return ;
                                         case "6":
                                             sql = "DELETE FROM checktrip where tno = '"+no+"'";
                                             stmt.executeUpdate(sql);
                                             sql = "DELETE from trip where tno='"+no+"'";
                                             stmt.executeUpdate(sql);
                                             System.out.println("请求已删除！");
-                                            break;
+                                            return ;
                                         default:
                                             modifying = false;
                                     }
@@ -579,7 +579,7 @@ public class Employee {
                                                     rs.next();
                                                     int dno = rs.getInt("dno");
 
-                                                    sql = "DELETE  checkleave where lno = '" + no + "'";
+                                                    sql = "DELETE FROM checkleave where lno = '" + no + "'";
                                                     stmt.executeUpdate(sql);
                                                     sql = "DELETE from `leave` where lno='" + no + "'";
                                                     stmt.executeUpdate(sql);
@@ -603,15 +603,14 @@ public class Employee {
                                                 stmt.executeUpdate(sql);
                                                 System.out.println("修改已保存！");
                                             }
-                                            break;
-
+                                            return;
                                         case "6":
-                                            sql = "DELETE checkleave where lno = '" + no + "'";
+                                            sql = "DELETE FROM checkleave where lno = '" + no + "'";
                                             stmt.executeUpdate(sql);
-                                            sql = "DELETE `leave` from `leave` where lno='" + no + "'";
+                                            sql = "DELETE FROM `leave` where lno='" + no + "'";
                                             stmt.executeUpdate(sql);
                                             System.out.println("申请已删除！");
-                                            break;
+                                            return ;
                                         default:
                                             modifying = false;
                                     }

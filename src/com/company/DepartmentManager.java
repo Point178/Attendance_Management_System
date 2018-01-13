@@ -296,7 +296,7 @@ public class DepartmentManager {
                     System.out.println("请输入拒绝理由(若同意或无理由请输入null):");
                     scanner = new Scanner(System.in);
                     String lrefuse = scanner.nextLine();
-                    stmt.execute(" update checkleave set lstate="+lstate+" ,lrefuse="+lrefuse+" where lno="+lno);
+                    stmt.execute(" update checkleave set lstate='"+lstate+"' ,lrefuse='"+lrefuse+"' where lno="+lno);
                     System.out.println("审批成功！");
                     //写入日志
                     if(lstate == 2)
