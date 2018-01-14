@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: attendance_management_system
 -- ------------------------------------------------------
--- Server version	5.6.37
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES ('10000','Kim','123456',4),('10001','aaa','123456',1),('10002','Singh','123',2),('10003','Katz','123',3),('10004','Brandt','123456',1),('10005','Gold','123',2),('10006','Wu','123456',1),('10007','Li','123456',1),('10008','Wang','123456',1),('10010','Zhao','123456',3);
+INSERT INTO `employee` VALUES ('10000','Kim','123456',4),('10001','Lin','123',1),('10002','Singh','123456',2),('10003','Katz','pass',3),('10005','Gold','password',2),('10006','Wu','123456',1),('10007','Li','123456',1),('10008','Wang','123456',1),('10010','Zhao','aaaa',3),('10011','Liu','123456',3),('10012','Ma','123456',3),('10013','Zhu','123456',1),('10017','aaa','123456',1);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-13 13:54:52
+-- Dump completed on 2018-01-14 18:47:43

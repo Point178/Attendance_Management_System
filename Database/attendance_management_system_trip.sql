@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: attendance_management_system
 -- ------------------------------------------------------
--- Server version	5.6.37
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +41,7 @@ CREATE TABLE `trip` (
 
 LOCK TABLES `trip` WRITE;
 /*!40000 ALTER TABLE `trip` DISABLE KEYS */;
-INSERT INTO `trip` VALUES ('220180112','10002','2018-01-12','2018-01-14',2,''),('620180115','10006','2018-01-15','2018-01-16',2,'个人申请出差');
+INSERT INTO `trip` VALUES ('120180115','10001','2018-01-15','2018-01-16',2,'none'),('120180201','10001','2018-02-01','2018-02-02',2,'asd'),('1720180117','10017','2018-01-17','2018-01-18',2,'asdff'),('220180120','10002','2018-01-20','2018-01-25',2,'abc');
 /*!40000 ALTER TABLE `trip` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-13 13:54:52
+-- Dump completed on 2018-01-14 18:47:43

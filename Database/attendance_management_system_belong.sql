@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: attendance_management_system
 -- ------------------------------------------------------
--- Server version	5.6.37
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +36,7 @@ CREATE TABLE `belong` (
 
 LOCK TABLES `belong` WRITE;
 /*!40000 ALTER TABLE `belong` DISABLE KEYS */;
-INSERT INTO `belong` VALUES ('10001','100'),('10002','100'),('10006','100'),('10007','100'),('10004','101'),('10005','101'),('10008','101');
+INSERT INTO `belong` VALUES (' 10017','100'),('10001','100'),('10002','100'),('10006','100'),('10007','100'),('10013','100'),('10004','101'),('10005','101'),('10008','101');
 /*!40000 ALTER TABLE `belong` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-13 13:54:51
+-- Dump completed on 2018-01-14 18:47:43

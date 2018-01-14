@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4be0d87-9e71-4dd0-9ce0-988e0af6592c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Database/attendance_management_system_routines.sql" afterPath="$PROJECT_DIR$/Database/attendance_management_system_routines.sql" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Administrator.java" afterPath="$PROJECT_DIR$/src/com/company/Administrator.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/DepartmentManager.java" afterPath="$PROJECT_DIR$/src/com/company/DepartmentManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Employee.java" afterPath="$PROJECT_DIR$/src/com/company/Employee.java" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" afterPath="$PROJECT_DIR$/src/com/company/Main.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/PersonnelManager.java" afterPath="$PROJECT_DIR$/src/com/company/PersonnelManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,15 +17,16 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1822">
-              <caret line="134" column="72" lean-forward="false" selection-start-line="134" selection-start-column="67" selection-end-line="134" selection-end-column="72" />
+            <state relative-caret-position="186">
+              <caret line="155" column="38" lean-forward="true" selection-start-line="155" selection-start-column="38" selection-end-line="155" selection-end-column="38" />
               <folding>
-                <marker date="1515484918461" expanded="true" signature="1237:1288" ph="SELECT ename... employee" />
-                <marker date="1515484918461" expanded="true" signature="1986:2028" ph="SELECT vacat... vacation" />
+                <marker date="1515901599546" expanded="true" signature="1237:1288" ph="SELECT ename... employee" />
+                <marker date="1515901599546" expanded="true" signature="2159:2214" ph="SELECT vacat... vacation" />
+                <marker date="1515901599546" expanded="true" signature="2624:2727" ph="insert into log... " />
               </folding>
             </state>
           </provider>
@@ -31,46 +35,172 @@
       <file leaf-file-name="Employee.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Employee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="160" column="40" lean-forward="false" selection-start-line="160" selection-start-column="40" selection-end-line="160" selection-end-column="40" />
+            <state relative-caret-position="179">
+              <caret line="159" column="15" lean-forward="false" selection-start-line="159" selection-start-column="10" selection-end-line="159" selection-end-column="15" />
               <folding>
                 <element signature="method#Employee#0;class#Employee#0" expanded="false" />
-                <element signature="method#run#0;class#Employee#0" expanded="false" />
                 <element signature="method#isLate#0;class#Employee#0" expanded="false" />
                 <element signature="method#changePasswd#0;class#Employee#0" expanded="false" />
                 <element signature="method#bussiness#0;class#Employee#0" expanded="false" />
-                <element signature="method#leave#0;class#Employee#0" expanded="false" />
-                <marker date="1515481436981" expanded="true" signature="683:712" ph="SELECT stime... time" />
-                <marker date="1515481436981" expanded="true" signature="1586:1647" ph="SELECT astat... attendance" />
-                <marker date="1515481436981" expanded="true" signature="1816:2002" ph="INSERT INTO attendance... " />
-                <marker date="1515481436981" expanded="true" signature="2077:2138" ph="SELECT astat... attendance" />
-                <marker date="1515481436981" expanded="true" signature="6057:6107" ph="update employee... " />
+                <element signature="method#checkin#0;class#Employee#0" expanded="false" />
+                <element signature="method#checkout#0;class#Employee#0" expanded="false" />
+                <marker date="1515901599574" expanded="true" signature="1453:1575" ph="SELECT intim... attendance" />
+                <marker date="1515901599574" expanded="true" signature="1757:1947" ph="INSERT INTO attendance... " />
+                <marker date="1515901599574" expanded="true" signature="2047:2237" ph="INSERT INTO attendance... " />
+                <marker date="1515901599574" expanded="true" signature="2326:2448" ph="SELECT intim... attendance" />
+                <marker date="1515901599574" expanded="true" signature="3661:3779" ph="UPDATE attendance... " />
+                <marker date="1515901599574" expanded="true" signature="20677:20710" ph="SELECT dno F... belong" />
+                <marker date="1515901599574" expanded="true" signature="21021:21066" ph="SELECT lno F... leave" />
+                <marker date="1515901599574" expanded="true" signature="21174:21419" ph="INSERT INTO `leave`... " />
+                <marker date="1515901599574" expanded="true" signature="21496:21594" ph="INSERT INTO checkleave... " />
+                <marker date="1515901599574" expanded="true" signature="22034:22155" ph="insert into log... " />
+                <marker date="1515901599574" expanded="true" signature="22910:23153" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="23354:23530" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="23354:23536" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="23770:23943" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="23770:23950" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="24188:24359" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="24188:24366" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="24426:24566" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="24426:24573" ph="SELECT lno,l... leave" />
+                <marker date="1515901599574" expanded="true" signature="26418:26556" ph="SELECT lsdat... leave" />
+                <marker date="1515901599574" expanded="true" signature="28737:28784" ph="SELECT * FRO... leave" />
+                <marker date="1515901599574" expanded="true" signature="28989:29040" ph="SELECT dno F... checkleave" />
+                <marker date="1515901599574" expanded="true" signature="29327:29374" ph="DELETE FROM checkleave... " />
+                <marker date="1515901599574" expanded="true" signature="29513:29555" ph="DELETE from `leave`... " />
+                <marker date="1515901599574" expanded="true" signature="29695:29976" ph="INSERT INTO `leave`... " />
+                <marker date="1515901599574" expanded="true" signature="30116:30214" ph="INSERT INTO checkleave... " />
+                <marker date="1515901599574" expanded="true" signature="30688:30828" ph="update `leave`... " />
+                <marker date="1515901599574" expanded="true" signature="30960:31029" ph="update checkleave... " />
+                <marker date="1515901599574" expanded="true" signature="31382:31429" ph="DELETE FROM checkleave... " />
+                <marker date="1515901599574" expanded="true" signature="31552:31594" ph="DELETE FROM `leave`... " />
+                <marker date="1515901599574" expanded="true" signature="33046:33350" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="33427:33554" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="33427:33670" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="33555:33670" ph="/*where eno " />
+                <marker date="1515901599574" expanded="true" signature="33745:33987" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="34062:34322" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="34397:34639" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="34714:34937" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="35012:35235" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="35310:35570" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="35645:35762" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="35645:35772" ph="select adate... attendance" />
+                <marker date="1515901599574" expanded="true" signature="35645:35851" ph="select adate... attendance" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Administrator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Administrator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Administrator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1175">
-              <caret line="184" column="36" lean-forward="false" selection-start-line="184" selection-start-column="36" selection-end-line="184" selection-end-column="36" />
+            <state relative-caret-position="179">
+              <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1515495885344" expanded="true" signature="2500:2522" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="2500:2534" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="2500:2544" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="3023:3059" ph="SELECT * FRO... department" />
-                <marker date="1515495885344" expanded="true" signature="3023:3060" ph="SELECT * FRO... department" />
-                <marker date="1515495885344" expanded="true" signature="3023:3067" ph="SELECT * FRO... department" />
-                <marker date="1515495885344" expanded="true" signature="3363:3431" ph="INSERT INTO belong... " />
-                <marker date="1515495885344" expanded="true" signature="3847:3925" ph="INSERT INTO employee... " />
-                <marker date="1515495885344" expanded="true" signature="3847:3948" ph="INSERT INTO employee... " />
-                <marker date="1515495885344" expanded="true" signature="4318:4352" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="4596:4627" ph="DELETE FROM employee... " />
-                <marker date="1515495885344" expanded="true" signature="4934:4968" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="5499:5533" ph="SELECT * FRO... employee" />
-                <marker date="1515495885344" expanded="true" signature="5787:5820" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="2843:2877" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="3355:3409" ph="SELECT * FRO... department" />
+                <marker date="1515901599562" expanded="true" signature="3724:3778" ph="SELECT * FRO... department" />
+                <marker date="1515901599562" expanded="true" signature="3928:3994" ph="INSERT INTO belong... " />
+                <marker date="1515901599562" expanded="true" signature="4410:4511" ph="INSERT INTO employee... " />
+                <marker date="1515901599562" expanded="true" signature="4976:5010" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="5254:5285" ph="DELETE FROM employee... " />
+                <marker date="1515901599562" expanded="true" signature="5362:5394" ph="SELECT * FRO... belong" />
+                <marker date="1515901599562" expanded="true" signature="5554:5583" ph="DELETE FROM belong... " />
+                <marker date="1515901599562" expanded="true" signature="5963:5997" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="6539:6610" ph="update employee... " />
+                <marker date="1515901599562" expanded="true" signature="7300:7334" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="7660:7693" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="7960:8010" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="8323:8372" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="9079:9127" ph="SELECT dno F... belong" />
+                <marker date="1515901599562" expanded="true" signature="9282:9332" ph="SELECT * FRO... department" />
+                <marker date="1515901599562" expanded="true" signature="9712:9760" ph="SELECT dno F... belong" />
+                <marker date="1515901599562" expanded="true" signature="9915:9965" ph="SELECT * FRO... department" />
+                <marker date="1515901599562" expanded="true" signature="11064:11098" ph="SELECT * FRO... employee" />
+                <marker date="1515901599562" expanded="true" signature="11424:11468" ph="SELECT * FRO... attendance" />
+                <marker date="1515901599562" expanded="true" signature="11424:11518" ph="SELECT * FRO... attendance" />
+                <marker date="1515901599562" expanded="true" signature="11748:11800" ph="SELECT eno F... employee" />
+                <marker date="1515901599562" expanded="true" signature="12123:12180" ph="SELECT * FRO... attendance" />
+                <marker date="1515901599562" expanded="true" signature="12123:12218" ph="SELECT * FRO... attendance" />
+                <marker date="1515901599562" expanded="true" signature="15352:15369" ph="SELECT * FRO... log" />
+                <marker date="1515901599562" expanded="true" signature="16243:16335" ph="SELECT * FRO... log" />
+                <marker date="1515901599562" expanded="true" signature="16555:16645" ph="DELETE FROM log... " />
+                <marker date="1515901599562" expanded="true" signature="17133:17253" ph="insert into log... " />
+                <marker date="1515901599562" expanded="true" signature="18994:19023" ph="SELECT stime... time" />
+                <marker date="1515901599562" expanded="true" signature="19930:19975" ph="UPDATE time... " />
+                <marker date="1515901599562" expanded="true" signature="21082:21125" ph="SELECT vdate... vacation" />
+                <marker date="1515901599562" expanded="true" signature="21989:22040" ph="SELECT * FRO... vacation" />
+                <marker date="1515901599562" expanded="true" signature="22204:22284" ph="INSERT INTO vacation... " />
+                <marker date="1515901599562" expanded="true" signature="22324:22399" ph="UPDATE vacation... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DepartmentManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/company/DepartmentManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="412" column="26" lean-forward="false" selection-start-line="412" selection-start-column="22" selection-end-line="412" selection-end-column="26" />
+              <folding>
+                <marker date="1515912562470" expanded="true" signature="2301:2335" ph="SELECT * FRO... employee" />
+                <marker date="1515912562470" expanded="true" signature="2892:2944" ph="SELECT eno F... employee" />
+                <marker date="1515912562470" expanded="true" signature="3664:3743" ph="SELECT * FRO... attendance" />
+                <marker date="1515912562470" expanded="true" signature="5487:5819" ph="SELECT eno,C... attendance" />
+                <marker date="1515912562470" expanded="true" signature="6116:6446" ph="SELECT eno,C... attendance" />
+                <marker date="1515912562470" expanded="true" signature="7841:8018" ph="SELECT * FRO... attendance" />
+                <marker date="1515912562470" expanded="true" signature="9689:9859" ph="SELECT * FRO... leave" />
+                <marker date="1515912562470" expanded="true" signature="10910:11074" ph="SELECT * FRO... trip" />
+                <marker date="1515912562470" expanded="true" signature="12529:12674" ph="SELECT * FRO... checkleave" />
+                <marker date="1515912562470" expanded="true" signature="14779:14862" ph="update checkleave... " />
+                <marker date="1515912562470" expanded="true" signature="15374:15422" ph="SELECT lsdat... leave" />
+                <marker date="1515912562470" expanded="true" signature="16094:16162" ph="SELECT * FRO... attendance" />
+                <marker date="1515912562470" expanded="true" signature="16318:16373" ph="UPDATE attendance... " />
+                <marker date="1515912562470" expanded="true" signature="16454:16545" ph="INSERT INTO attendance... " />
+                <marker date="1515912562470" expanded="true" signature="16821:16962" ph="SELECT * FRO... checktrip" />
+                <marker date="1515912562470" expanded="true" signature="19050:19130" ph="update checktrip... " />
+                <marker date="1515912562470" expanded="true" signature="19640:19685" ph="SELECT tsdat... trip" />
+                <marker date="1515912562470" expanded="true" signature="20358:20426" ph="SELECT * FRO... attendance" />
+                <marker date="1515912562470" expanded="true" signature="20582:20637" ph="UPDATE attendance... " />
+                <marker date="1515912562470" expanded="true" signature="20718:20809" ph="INSERT INTO attendance... " />
+                <marker date="1515912562470" expanded="true" signature="21378:21508" ph="insert into log" />
+                <marker date="1515912562470" expanded="true" signature="21652:21697" ph="SELECT * FRO... belong" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonnelManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/company/PersonnelManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="58">
+              <caret line="417" column="34" lean-forward="false" selection-start-line="417" selection-start-column="34" selection-end-line="417" selection-end-column="34" />
+              <folding>
+                <marker date="1515913804735" expanded="true" signature="2216:2250" ph="SELECT * FRO... employee" />
+                <marker date="1515913804735" expanded="true" signature="2859:2911" ph="SELECT eno F... employee" />
+                <marker date="1515913804735" expanded="true" signature="3466:3544" ph="SELECT * FRO... attendance" />
+                <marker date="1515913804735" expanded="true" signature="4906:4980" ph="SELECT dno F... department" />
+                <marker date="1515913804735" expanded="true" signature="5536:5809" ph="SELECT eno,C... attendance" />
+                <marker date="1515913804735" expanded="true" signature="6247:6357" ph="SELECT * FRO... attendance" />
+                <marker date="1515913804735" expanded="true" signature="8067:8162" ph="SELECT * FRO... leave" />
+                <marker date="1515913804735" expanded="true" signature="9229:9319" ph="SELECT * FRO... trip" />
+                <marker date="1515913804735" expanded="true" signature="10929:11013" ph="SELECT mno,d... department" />
+                <marker date="1515913804735" expanded="true" signature="11600:11782" ph="SELECT * FRO... checkleave" />
+                <marker date="1515913804735" expanded="true" signature="13696:13769" ph="update checkleave... " />
+                <marker date="1515913804735" expanded="true" signature="14216:14260" ph="SELECT lsdat... leave" />
+                <marker date="1515913804735" expanded="true" signature="14898:14966" ph="SELECT * FRO... attendance" />
+                <marker date="1515913804735" expanded="true" signature="15122:15177" ph="UPDATE attendance... " />
+                <marker date="1515913804735" expanded="true" signature="15258:15349" ph="INSERT INTO attendance... " />
+                <marker date="1515913804735" expanded="true" signature="15799:15883" ph="SELECT mno,d... department" />
+                <marker date="1515913804735" expanded="true" signature="16419:16598" ph="SELECT * FRO... checktrip" />
+                <marker date="1515913804735" expanded="true" signature="18486:18563" ph="update checktrip... " />
+                <marker date="1515913804735" expanded="true" signature="19008:19049" ph="SELECT tsdat... trip" />
+                <marker date="1515913804735" expanded="true" signature="19682:19750" ph="SELECT * FRO... attendance" />
+                <marker date="1515913804735" expanded="true" signature="19907:19962" ph="UPDATE attendance... " />
+                <marker date="1515913804735" expanded="true" signature="20043:20134" ph="INSERT INTO attendance... " />
+                <marker date="1515913804735" expanded="true" signature="20779:20908" ph="insert into log... " />
               </folding>
             </state>
           </provider>
@@ -88,6 +218,19 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>id</find>
+      <find>desc</find>
+      <find>des</find>
+      <find>date</find>
+      <find>sqlDate</find>
+      <find>count</find>
+      <find>COUNT</find>
+      <find>catch</find>
+      <find>approve_application</find>
+      <find>lstate</find>
+      <find>lstate !</find>
+      <find>tstate !</find>
+      <find>写入日志</find>
+      <find>3</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -102,7 +245,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/company/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/company/Employee.java" />
         <option value="$PROJECT_DIR$/src/com/company/Administrator.java" />
+        <option value="$PROJECT_DIR$/src/com/company/DepartmentManager.java" />
+        <option value="$PROJECT_DIR$/src/com/company/PersonnelManager.java" />
       </list>
     </option>
   </component>
@@ -635,10 +781,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -670,6 +814,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -813,42 +959,43 @@
       <option name="presentableId" value="Default" />
       <updated>1515481844508</updated>
       <workItem from="1515481848267" duration="13532000" />
+      <workItem from="1515855719024" duration="15465000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13532000" />
+    <option name="totallyTimeSpent" value="28997000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="27" y="23" width="1400" height="775" extended-state="0" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994187" sideWeight="0.50285715" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32994187" sideWeight="0.49714285" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994187" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994187" sideWeight="0.50285715" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4622093" sideWeight="0.49714285" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13071428" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13772455" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994187" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -859,16 +1006,85 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1515901599546" expanded="true" signature="1237:1288" ph="SELECT ename... employee" />
+            <marker date="1515901599546" expanded="true" signature="2159:2214" ph="SELECT vacat... vacation" />
+            <marker date="1515901599546" expanded="true" signature="2624:2727" ph="insert into log... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3520">
+          <caret line="160" column="31" lean-forward="true" selection-start-line="160" selection-start-column="31" selection-end-line="160" selection-end-column="31" />
+          <folding>
+            <element signature="method#Employee#0;class#Employee#0" expanded="false" />
+            <element signature="method#isLate#0;class#Employee#0" expanded="false" />
+            <element signature="method#changePasswd#0;class#Employee#0" expanded="false" />
+            <element signature="method#bussiness#0;class#Employee#0" expanded="false" />
+            <element signature="method#checkin#0;class#Employee#0" expanded="false" />
+            <element signature="method#checkout#0;class#Employee#0" expanded="false" />
+            <marker date="1515901599574" expanded="true" signature="1453:1575" ph="SELECT intim... attendance" />
+            <marker date="1515901599574" expanded="true" signature="1757:1947" ph="INSERT INTO attendance... " />
+            <marker date="1515901599574" expanded="true" signature="2047:2237" ph="INSERT INTO attendance... " />
+            <marker date="1515901599574" expanded="true" signature="2326:2448" ph="SELECT intim... attendance" />
+            <marker date="1515901599574" expanded="true" signature="3661:3779" ph="UPDATE attendance... " />
+            <marker date="1515901599574" expanded="true" signature="20677:20710" ph="SELECT dno F... belong" />
+            <marker date="1515901599574" expanded="true" signature="21021:21066" ph="SELECT lno F... leave" />
+            <marker date="1515901599574" expanded="true" signature="21174:21419" ph="INSERT INTO `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="21496:21594" ph="INSERT INTO checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="22034:22155" ph="insert into log... " />
+            <marker date="1515901599574" expanded="true" signature="22910:23153" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23354:23530" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23354:23536" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23770:23943" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23770:23950" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24188:24359" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24188:24366" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24426:24566" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24426:24573" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="26418:26556" ph="SELECT lsdat... leave" />
+            <marker date="1515901599574" expanded="true" signature="28737:28784" ph="SELECT * FRO... leave" />
+            <marker date="1515901599574" expanded="true" signature="28989:29040" ph="SELECT dno F... checkleave" />
+            <marker date="1515901599574" expanded="true" signature="29327:29374" ph="DELETE FROM checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="29513:29555" ph="DELETE from `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="29695:29976" ph="INSERT INTO `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="30116:30214" ph="INSERT INTO checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="30688:30828" ph="update `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="30960:31029" ph="update checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="31382:31429" ph="DELETE FROM checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="31552:31594" ph="DELETE FROM `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="33046:33350" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33427:33554" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33427:33670" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33555:33670" ph="/*where eno " />
+            <marker date="1515901599574" expanded="true" signature="33745:33987" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34062:34322" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34397:34639" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34714:34937" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35012:35235" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35310:35570" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35762" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35772" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35851" ph="select adate... attendance" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Attendance_Management_System.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -876,7 +1092,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -884,7 +1099,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -892,61 +1106,183 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-768">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Administrator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1822">
-          <caret line="134" column="72" lean-forward="false" selection-start-line="134" selection-start-column="67" selection-end-line="134" selection-end-column="72" />
+        <state relative-caret-position="179">
+          <caret line="46" column="15" lean-forward="false" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="15" />
           <folding>
-            <marker date="1515484918461" expanded="true" signature="1237:1288" ph="SELECT ename... employee" />
-            <marker date="1515484918461" expanded="true" signature="1986:2028" ph="SELECT vacat... vacation" />
+            <element signature="imports" expanded="true" />
+            <marker date="1515901599562" expanded="true" signature="2843:2877" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="3355:3409" ph="SELECT * FRO... department" />
+            <marker date="1515901599562" expanded="true" signature="3724:3778" ph="SELECT * FRO... department" />
+            <marker date="1515901599562" expanded="true" signature="3928:3994" ph="INSERT INTO belong... " />
+            <marker date="1515901599562" expanded="true" signature="4410:4511" ph="INSERT INTO employee... " />
+            <marker date="1515901599562" expanded="true" signature="4976:5010" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="5254:5285" ph="DELETE FROM employee... " />
+            <marker date="1515901599562" expanded="true" signature="5362:5394" ph="SELECT * FRO... belong" />
+            <marker date="1515901599562" expanded="true" signature="5554:5583" ph="DELETE FROM belong... " />
+            <marker date="1515901599562" expanded="true" signature="5963:5997" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="6539:6610" ph="update employee... " />
+            <marker date="1515901599562" expanded="true" signature="7300:7334" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="7660:7693" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="7960:8010" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="8323:8372" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="9079:9127" ph="SELECT dno F... belong" />
+            <marker date="1515901599562" expanded="true" signature="9282:9332" ph="SELECT * FRO... department" />
+            <marker date="1515901599562" expanded="true" signature="9712:9760" ph="SELECT dno F... belong" />
+            <marker date="1515901599562" expanded="true" signature="9915:9965" ph="SELECT * FRO... department" />
+            <marker date="1515901599562" expanded="true" signature="11064:11098" ph="SELECT * FRO... employee" />
+            <marker date="1515901599562" expanded="true" signature="11424:11468" ph="SELECT * FRO... attendance" />
+            <marker date="1515901599562" expanded="true" signature="11424:11518" ph="SELECT * FRO... attendance" />
+            <marker date="1515901599562" expanded="true" signature="11748:11800" ph="SELECT eno F... employee" />
+            <marker date="1515901599562" expanded="true" signature="12123:12180" ph="SELECT * FRO... attendance" />
+            <marker date="1515901599562" expanded="true" signature="12123:12218" ph="SELECT * FRO... attendance" />
+            <marker date="1515901599562" expanded="true" signature="15352:15369" ph="SELECT * FRO... log" />
+            <marker date="1515901599562" expanded="true" signature="16243:16335" ph="SELECT * FRO... log" />
+            <marker date="1515901599562" expanded="true" signature="16555:16645" ph="DELETE FROM log... " />
+            <marker date="1515901599562" expanded="true" signature="17133:17253" ph="insert into log... " />
+            <marker date="1515901599562" expanded="true" signature="18994:19023" ph="SELECT stime... time" />
+            <marker date="1515901599562" expanded="true" signature="19930:19975" ph="UPDATE time... " />
+            <marker date="1515901599562" expanded="true" signature="21082:21125" ph="SELECT vdate... vacation" />
+            <marker date="1515901599562" expanded="true" signature="21989:22040" ph="SELECT * FRO... vacation" />
+            <marker date="1515901599562" expanded="true" signature="22204:22284" ph="INSERT INTO vacation... " />
+            <marker date="1515901599562" expanded="true" signature="22324:22399" ph="UPDATE vacation... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="160" column="40" lean-forward="false" selection-start-line="160" selection-start-column="40" selection-end-line="160" selection-end-column="40" />
+        <state relative-caret-position="179">
+          <caret line="159" column="15" lean-forward="false" selection-start-line="159" selection-start-column="10" selection-end-line="159" selection-end-column="15" />
           <folding>
             <element signature="method#Employee#0;class#Employee#0" expanded="false" />
-            <element signature="method#run#0;class#Employee#0" expanded="false" />
             <element signature="method#isLate#0;class#Employee#0" expanded="false" />
             <element signature="method#changePasswd#0;class#Employee#0" expanded="false" />
             <element signature="method#bussiness#0;class#Employee#0" expanded="false" />
-            <element signature="method#leave#0;class#Employee#0" expanded="false" />
-            <marker date="1515481436981" expanded="true" signature="683:712" ph="SELECT stime... time" />
-            <marker date="1515481436981" expanded="true" signature="1586:1647" ph="SELECT astat... attendance" />
-            <marker date="1515481436981" expanded="true" signature="1816:2002" ph="INSERT INTO attendance... " />
-            <marker date="1515481436981" expanded="true" signature="2077:2138" ph="SELECT astat... attendance" />
-            <marker date="1515481436981" expanded="true" signature="6057:6107" ph="update employee... " />
+            <element signature="method#checkin#0;class#Employee#0" expanded="false" />
+            <element signature="method#checkout#0;class#Employee#0" expanded="false" />
+            <marker date="1515901599574" expanded="true" signature="1453:1575" ph="SELECT intim... attendance" />
+            <marker date="1515901599574" expanded="true" signature="1757:1947" ph="INSERT INTO attendance... " />
+            <marker date="1515901599574" expanded="true" signature="2047:2237" ph="INSERT INTO attendance... " />
+            <marker date="1515901599574" expanded="true" signature="2326:2448" ph="SELECT intim... attendance" />
+            <marker date="1515901599574" expanded="true" signature="3661:3779" ph="UPDATE attendance... " />
+            <marker date="1515901599574" expanded="true" signature="20677:20710" ph="SELECT dno F... belong" />
+            <marker date="1515901599574" expanded="true" signature="21021:21066" ph="SELECT lno F... leave" />
+            <marker date="1515901599574" expanded="true" signature="21174:21419" ph="INSERT INTO `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="21496:21594" ph="INSERT INTO checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="22034:22155" ph="insert into log... " />
+            <marker date="1515901599574" expanded="true" signature="22910:23153" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23354:23530" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23354:23536" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23770:23943" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="23770:23950" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24188:24359" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24188:24366" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24426:24566" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="24426:24573" ph="SELECT lno,l... leave" />
+            <marker date="1515901599574" expanded="true" signature="26418:26556" ph="SELECT lsdat... leave" />
+            <marker date="1515901599574" expanded="true" signature="28737:28784" ph="SELECT * FRO... leave" />
+            <marker date="1515901599574" expanded="true" signature="28989:29040" ph="SELECT dno F... checkleave" />
+            <marker date="1515901599574" expanded="true" signature="29327:29374" ph="DELETE FROM checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="29513:29555" ph="DELETE from `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="29695:29976" ph="INSERT INTO `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="30116:30214" ph="INSERT INTO checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="30688:30828" ph="update `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="30960:31029" ph="update checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="31382:31429" ph="DELETE FROM checkleave... " />
+            <marker date="1515901599574" expanded="true" signature="31552:31594" ph="DELETE FROM `leave`... " />
+            <marker date="1515901599574" expanded="true" signature="33046:33350" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33427:33554" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33427:33670" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="33555:33670" ph="/*where eno " />
+            <marker date="1515901599574" expanded="true" signature="33745:33987" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34062:34322" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34397:34639" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="34714:34937" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35012:35235" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35310:35570" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35762" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35772" ph="select adate... attendance" />
+            <marker date="1515901599574" expanded="true" signature="35645:35851" ph="select adate... attendance" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Administrator.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1175">
-          <caret line="184" column="36" lean-forward="false" selection-start-line="184" selection-start-column="36" selection-end-line="184" selection-end-column="36" />
+        <state relative-caret-position="186">
+          <caret line="155" column="38" lean-forward="true" selection-start-line="155" selection-start-column="38" selection-end-line="155" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1515495885344" expanded="true" signature="2500:2522" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="2500:2534" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="2500:2544" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="3023:3059" ph="SELECT * FRO... department" />
-            <marker date="1515495885344" expanded="true" signature="3023:3060" ph="SELECT * FRO... department" />
-            <marker date="1515495885344" expanded="true" signature="3023:3067" ph="SELECT * FRO... department" />
-            <marker date="1515495885344" expanded="true" signature="3363:3431" ph="INSERT INTO belong... " />
-            <marker date="1515495885344" expanded="true" signature="3847:3925" ph="INSERT INTO employee... " />
-            <marker date="1515495885344" expanded="true" signature="3847:3948" ph="INSERT INTO employee... " />
-            <marker date="1515495885344" expanded="true" signature="4318:4352" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="4596:4627" ph="DELETE FROM employee... " />
-            <marker date="1515495885344" expanded="true" signature="4934:4968" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="5499:5533" ph="SELECT * FRO... employee" />
-            <marker date="1515495885344" expanded="true" signature="5787:5820" ph="SELECT * FRO... employee" />
+            <marker date="1515901599546" expanded="true" signature="1237:1288" ph="SELECT ename... employee" />
+            <marker date="1515901599546" expanded="true" signature="2159:2214" ph="SELECT vacat... vacation" />
+            <marker date="1515901599546" expanded="true" signature="2624:2727" ph="insert into log... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/DepartmentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="412" column="26" lean-forward="false" selection-start-line="412" selection-start-column="22" selection-end-line="412" selection-end-column="26" />
+          <folding>
+            <marker date="1515912562470" expanded="true" signature="2301:2335" ph="SELECT * FRO... employee" />
+            <marker date="1515912562470" expanded="true" signature="2892:2944" ph="SELECT eno F... employee" />
+            <marker date="1515912562470" expanded="true" signature="3664:3743" ph="SELECT * FRO... attendance" />
+            <marker date="1515912562470" expanded="true" signature="5487:5819" ph="SELECT eno,C... attendance" />
+            <marker date="1515912562470" expanded="true" signature="6116:6446" ph="SELECT eno,C... attendance" />
+            <marker date="1515912562470" expanded="true" signature="7841:8018" ph="SELECT * FRO... attendance" />
+            <marker date="1515912562470" expanded="true" signature="9689:9859" ph="SELECT * FRO... leave" />
+            <marker date="1515912562470" expanded="true" signature="10910:11074" ph="SELECT * FRO... trip" />
+            <marker date="1515912562470" expanded="true" signature="12529:12674" ph="SELECT * FRO... checkleave" />
+            <marker date="1515912562470" expanded="true" signature="14779:14862" ph="update checkleave... " />
+            <marker date="1515912562470" expanded="true" signature="15374:15422" ph="SELECT lsdat... leave" />
+            <marker date="1515912562470" expanded="true" signature="16094:16162" ph="SELECT * FRO... attendance" />
+            <marker date="1515912562470" expanded="true" signature="16318:16373" ph="UPDATE attendance... " />
+            <marker date="1515912562470" expanded="true" signature="16454:16545" ph="INSERT INTO attendance... " />
+            <marker date="1515912562470" expanded="true" signature="16821:16962" ph="SELECT * FRO... checktrip" />
+            <marker date="1515912562470" expanded="true" signature="19050:19130" ph="update checktrip... " />
+            <marker date="1515912562470" expanded="true" signature="19640:19685" ph="SELECT tsdat... trip" />
+            <marker date="1515912562470" expanded="true" signature="20358:20426" ph="SELECT * FRO... attendance" />
+            <marker date="1515912562470" expanded="true" signature="20582:20637" ph="UPDATE attendance... " />
+            <marker date="1515912562470" expanded="true" signature="20718:20809" ph="INSERT INTO attendance... " />
+            <marker date="1515912562470" expanded="true" signature="21378:21508" ph="insert into log" />
+            <marker date="1515912562470" expanded="true" signature="21652:21697" ph="SELECT * FRO... belong" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/PersonnelManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="417" column="34" lean-forward="false" selection-start-line="417" selection-start-column="34" selection-end-line="417" selection-end-column="34" />
+          <folding>
+            <marker date="1515913804735" expanded="true" signature="2216:2250" ph="SELECT * FRO... employee" />
+            <marker date="1515913804735" expanded="true" signature="2859:2911" ph="SELECT eno F... employee" />
+            <marker date="1515913804735" expanded="true" signature="3466:3544" ph="SELECT * FRO... attendance" />
+            <marker date="1515913804735" expanded="true" signature="4906:4980" ph="SELECT dno F... department" />
+            <marker date="1515913804735" expanded="true" signature="5536:5809" ph="SELECT eno,C... attendance" />
+            <marker date="1515913804735" expanded="true" signature="6247:6357" ph="SELECT * FRO... attendance" />
+            <marker date="1515913804735" expanded="true" signature="8067:8162" ph="SELECT * FRO... leave" />
+            <marker date="1515913804735" expanded="true" signature="9229:9319" ph="SELECT * FRO... trip" />
+            <marker date="1515913804735" expanded="true" signature="10929:11013" ph="SELECT mno,d... department" />
+            <marker date="1515913804735" expanded="true" signature="11600:11782" ph="SELECT * FRO... checkleave" />
+            <marker date="1515913804735" expanded="true" signature="13696:13769" ph="update checkleave... " />
+            <marker date="1515913804735" expanded="true" signature="14216:14260" ph="SELECT lsdat... leave" />
+            <marker date="1515913804735" expanded="true" signature="14898:14966" ph="SELECT * FRO... attendance" />
+            <marker date="1515913804735" expanded="true" signature="15122:15177" ph="UPDATE attendance... " />
+            <marker date="1515913804735" expanded="true" signature="15258:15349" ph="INSERT INTO attendance... " />
+            <marker date="1515913804735" expanded="true" signature="15799:15883" ph="SELECT mno,d... department" />
+            <marker date="1515913804735" expanded="true" signature="16419:16598" ph="SELECT * FRO... checktrip" />
+            <marker date="1515913804735" expanded="true" signature="18486:18563" ph="update checktrip... " />
+            <marker date="1515913804735" expanded="true" signature="19008:19049" ph="SELECT tsdat... trip" />
+            <marker date="1515913804735" expanded="true" signature="19682:19750" ph="SELECT * FRO... attendance" />
+            <marker date="1515913804735" expanded="true" signature="19907:19962" ph="UPDATE attendance... " />
+            <marker date="1515913804735" expanded="true" signature="20043:20134" ph="INSERT INTO attendance... " />
+            <marker date="1515913804735" expanded="true" signature="20779:20908" ph="insert into log... " />
           </folding>
         </state>
       </provider>
