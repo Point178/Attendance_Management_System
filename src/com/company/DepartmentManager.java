@@ -11,13 +11,13 @@ public class DepartmentManager {
     private String manager_dno;
     private Statement stmt;
 
-    public DepartmentManager(int id, Statement stmt) throws Exception{
-        this.manager_eno = id+"";
+    public DepartmentManager(int id, Statement stmt) throws Exception {
+        this.manager_eno = id + "";
         this.stmt = stmt;
         this.manager_dno = check_dno(manager_eno);
     }
 
-    public void run(){
+    public void run() {
         try {
             boolean execute = true;
             while (execute) {
@@ -52,7 +52,6 @@ public class DepartmentManager {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("输入不合法！");
         }
     }
@@ -60,7 +59,7 @@ public class DepartmentManager {
     /**
      * 根据姓名或员工编号查看某个员工的考勤信息
      */
-    public void view_attendance() throws Exception{
+    public void view_attendance() throws Exception {
         ResultSet rs;
         System.out.println("请选择按工号查询-1/按姓名查询-2");
         Scanner scanner = new Scanner(System.in);
@@ -80,7 +79,7 @@ public class DepartmentManager {
                     System.out.println("不存在工号为" + usrId + "的员工！");
                     return;
                 }
-                employee_eno = usrId+"";
+                employee_eno = usrId + "";
                 break;
             case "2":
                 System.out.println("请输入员工姓名");
@@ -100,9 +99,9 @@ public class DepartmentManager {
                 return;
         }
         //判断这个员工是否是自己部门下的员工，否则没有查看的权限
-        if(!check_dno(employee_eno).equals(check_dno(manager_eno))){
+        if (!check_dno(employee_eno).equals(check_dno(manager_eno))) {
             System.out.println("对不起，这个员工不存在或者不属于您的部门，您不能查看他的考勤信息");
-            return ;
+            return;
         }
         java.sql.Date today = new java.sql.Date(new java.util.Date().getTime());
         rs = stmt.executeQuery("SELECT * FROM attendance WHERE adate < '" + today +
@@ -110,21 +109,18 @@ public class DepartmentManager {
         while (rs.next()) {
             System.out.print("工号: " + rs.getString(1));
             System.out.print("  日期: " + rs.getDate(2));
-            System.out.print("  签到时间: " + rs.getTime(3));
-            System.out.print("  签退时间: " + rs.getTime(4));
+            System.out.print("  签到: " + (rs.getTime(3) == null ? "        " : rs.getTime(3)));
+            System.out.print("  签退: " + (rs.getTime(4) == null ? "        " : rs.getTime(4)));
             String state = null;
             if (rs.getInt(8) == 2) {
                 state = "请假";
-            }
-            else if (rs.getInt(8) == 3) {
+            } else if (rs.getInt(8) == 3) {
                 state = "出差";
-            }
-            else {
+            } else {
                 state = "在公司";
                 if (rs.getInt(7) == 0) {
                     state = "(旷工)";
-                }
-                else {//没有旷工
+                } else {//没有旷工
                     if (rs.getInt(5) == 0) {
                         state += "(迟到)";
                     }
@@ -140,13 +136,14 @@ public class DepartmentManager {
 
     /**
      * 根据考勤的不同状态和日期进行查找
+     *
      * @throws Exception
      */
-    public void lookup_attendance()throws Exception{
+    public void lookup_attendance() throws Exception {
         System.out.println("您可以根据日期和上班状态进行考勤信息的筛选和查看，1：日期；2：上班状态");
         Scanner scanner = new Scanner(System.in);
         int choose = scanner.nextInt();
-        if(choose == 1){
+        if (choose == 1) {
             System.out.println("您可以查看某个日期范围内部门里所有员工的早退/迟到天数");
             System.out.println("请输入起始日期：");
             scanner = new Scanner(System.in);
@@ -157,39 +154,38 @@ public class DepartmentManager {
             //打印早退排序结果
             ResultSet rs = stmt.executeQuery("SELECT eno,COUNT(`leave`) AS early_leave_days FROM attendance NATURAL JOIN belong" +
                     "  WHERE `leave` = '1' AND belong.dno = " + manager_dno +
-                    " AND adate > '"+start+"' AND adate < '"+end+"'" +
+                    " AND adate > '" + start + "' AND adate < '" + end + "'" +
                     " GROUP BY eno" +
                     " ORDER BY early_leave_days DESC ");
             System.out.println("工号-------早退天数");
-            while (rs.next()){
-                System.out.print(rs.getString("eno") +"        ");
+            while (rs.next()) {
+                System.out.print(rs.getString("eno") + "        ");
                 System.out.println(rs.getString("early_leave_days"));
             }
             //打印迟到排序结果
             rs = stmt.executeQuery("SELECT eno,COUNT(arrive) AS arrive_late_days FROM attendance NATURAL JOIN belong" +
                     "  WHERE arrive = '1' AND belong.dno = " + manager_dno +
-                    " AND adate > '"+start+"' AND adate < '"+end+"'" +
+                    " AND adate > '" + start + "' AND adate < '" + end + "'" +
                     " GROUP BY eno" +
                     " ORDER BY arrive_late_days DESC ");
             System.out.println("工号-------迟到天数");
-            while (rs.next()){
-                System.out.print(rs.getString("eno") +"        ");
+            while (rs.next()) {
+                System.out.print(rs.getString("eno") + "        ");
                 System.out.println(rs.getString("arrive_late_days"));
             }
-        }
-        else if(choose == 2){
+        } else if (choose == 2) {
             System.out.println("请输入筛选条件： 1. 旷工  2. 没有旷工  3. 在公司  4. 请假  5. 出差");
             scanner = new Scanner(System.in);
-            String condition1  = scanner.nextLine();
+            String condition1 = scanner.nextLine();
             String condition;
             String condition2;
-            switch(condition1){
+            switch (condition1) {
                 case "1":
                     condition = "absent=0";
                     condition2 = "旷工";
                     break;
                 case "2":
-                    condition ="absent=1";
+                    condition = "absent=1";
                     condition2 = "没有旷工";
                     break;
                 case "3":
@@ -202,20 +198,20 @@ public class DepartmentManager {
                     break;
                 default:
                     condition = "astate=3";
-                    condition2 ="出差";
+                    condition2 = "出差";
             }
 
-            if(!condition.isEmpty()) {
+            if (!condition.isEmpty()) {
                 java.sql.Date today = new java.sql.Date(new java.util.Date().getTime());
                 ResultSet rs = stmt.executeQuery("SELECT * FROM attendance natural join belong" +
-                        " WHERE belong.dno = '" + manager_dno+ "' AND  adate < '" +today +"'"+
+                        " WHERE belong.dno = '" + manager_dno + "' AND  adate < '" + today + "'" +
                         " AND " + condition);
                 System.out.println("以下是按照条件  " + condition2 + "  查找的考勤信息：");
                 while (rs.next()) {
                     System.out.print("工号: " + rs.getString(1));
                     System.out.print("   日期: " + rs.getDate(2));
-                    System.out.print("   签到: " + rs.getTime(3));
-                    System.out.print("   签退: " + rs.getTime(4));
+                    System.out.print("  签到: " + (rs.getTime(3) == null ? "        " : rs.getTime(3)));
+                    System.out.print("  签退: " + (rs.getTime(4) == null ? "        " : rs.getTime(4)));
                     String state = null;
                     if (rs.getInt(8) == 2) {
                         state = " 请假";
@@ -237,52 +233,51 @@ public class DepartmentManager {
                     System.out.println("  状态： " + state);
                 }
             }
-        }
-        else
+        } else
             System.out.println("输入不合法！");
     }
 
     /**
      * 查看部门里所有的请假或出差的申请的历史记录
      */
-    public void view_application() throws Exception{
+    public void view_application() throws Exception {
         System.out.println("您可以查看您部门下员工所有的请假或出差申请，1：请假，2：出差");
         Scanner scanner = new Scanner(System.in);
         ResultSet rs;
-        switch (scanner.nextLine()){
+        switch (scanner.nextLine()) {
             case "1":
                 String sql = "SELECT * FROM `leave` natural join checkleave" +
-                        " WHERE checkleave.dno = "+manager_dno+
+                        " WHERE checkleave.dno = " + manager_dno +
                         " AND checkleave.lstate != '1' ";//所有不是待审批状态的记录
                 rs = stmt.executeQuery(sql);
                 System.out.println("以下是您审批的部门下所有员工的请假信息");
                 System.out.println("序号--------员工工号-----开始日期-----结束日期------类型--审批状态-----拒绝理由");
                 String line;
-                while (rs.next()){
-                    line = (rs.getString("lno") == null ? "无" : rs.getString("lno")) +"   ";
-                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) +"    ";
-                    line += (rs.getString("lsdate") == null ? "无" : rs.getString("lsdate")) +"  ";
-                    line += (rs.getString("ledate") == null ? "无" : rs.getString("ledate")) +"    ";
-                    line += check_leave_type(rs.getInt("ltype"))+"    ";
-                    line += check_state(rs.getInt("lstate"))+"        ";
+                while (rs.next()) {
+                    line = (rs.getString("lno") == null ? "无" : rs.getString("lno")) + "   ";
+                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) + "    ";
+                    line += (rs.getString("lsdate") == null ? "无" : rs.getString("lsdate")) + "  ";
+                    line += (rs.getString("ledate") == null ? "无" : rs.getString("ledate")) + "    ";
+                    line += check_leave_type(rs.getInt("ltype")) + "    ";
+                    line += check_state(rs.getInt("lstate")) + "        ";
                     line += (rs.getString("lrefuse") == null ? "无" : rs.getString("lrefuse"));
                     System.out.println(line);
                 }
                 break;
             case "2":
                 sql = "SELECT * FROM trip natural join checktrip" +
-                        " WHERE checktrip.dno = "+manager_dno+
+                        " WHERE checktrip.dno = " + manager_dno +
                         " AND checktrip.tstate != '1' ";
                 rs = stmt.executeQuery(sql);
                 System.out.println("以下是您审批的部门下所有员工的出差信息");
                 System.out.println("序号--------员工工号-----开始日期-----结束日期--------类型---审批状态-----拒绝理由");
-                while (rs.next()){
-                    line = (rs.getString("tno") == null ? "无" : rs.getString("tno")) +"   ";
-                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) +"    ";
-                    line += (rs.getString("tsdate") == null ? "无" : rs.getString("tsdate")) +"  ";
-                    line += (rs.getString("tedate") == null ? "无" : rs.getString("tedate")) +"    ";
-                    line += check_trip_type(rs.getInt("ttype"))+"   ";
-                    line += check_state(rs.getInt("tstate"))+"        ";
+                while (rs.next()) {
+                    line = (rs.getString("tno") == null ? "无" : rs.getString("tno")) + "   ";
+                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) + "    ";
+                    line += (rs.getString("tsdate") == null ? "无" : rs.getString("tsdate")) + "  ";
+                    line += (rs.getString("tedate") == null ? "无" : rs.getString("tedate")) + "    ";
+                    line += check_trip_type(rs.getInt("ttype")) + "   ";
+                    line += check_state(rs.getInt("tstate")) + "        ";
                     line += (rs.getString("trefuse") == null ? "无" : rs.getString("trefuse"));
                     System.out.println(line);
                 }
@@ -295,33 +290,34 @@ public class DepartmentManager {
 
     /**
      * 审批部门里员工的请假和出差申请
+     *
      * @throws Exception
      */
-    public void approve_application() throws Exception{
+    public void approve_application() throws Exception {
         System.out.println("您可以审批您部门里员工的请假和出差申请————1：请假申请；2：出差申请");
         Scanner scanner = new Scanner(System.in);
-        switch (scanner.nextLine()){
+        switch (scanner.nextLine()) {
             case "1":
                 ResultSet rs = stmt.executeQuery("SELECT * FROM checkleave natural join `leave`" +
-                        " WHERE dno = " + manager_dno+
+                        " WHERE dno = " + manager_dno +
                         " AND lstate = 1 ");//待审批的申请
                 String line;
                 System.out.println("以下是您部门里待处理的请假申请：");
                 System.out.println("序号--------员工工号-----开始日期-----结束日期------类型---审批状态-----拒绝理由");
                 //System.out.println("120180112---10001----2018-01-12--2018-01-14----产假---待审和--------无");
-                while (rs.next()){
-                    line = (rs.getString("lno") == null ? "无" : rs.getString("lno")) +"   ";
-                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) +"    ";
-                    line += (rs.getString("lsdate") == null ? "无" : rs.getString("lsdate")) +"  ";
-                    line += (rs.getString("ledate") == null ? "无" : rs.getString("ledate")) +"    ";
-                    line += check_leave_type(rs.getInt("ltype"))+"   ";
-                    line += check_state(rs.getInt("lstate"))+"        ";
+                while (rs.next()) {
+                    line = (rs.getString("lno") == null ? "无" : rs.getString("lno")) + "   ";
+                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) + "    ";
+                    line += (rs.getString("lsdate") == null ? "无" : rs.getString("lsdate")) + "  ";
+                    line += (rs.getString("ledate") == null ? "无" : rs.getString("ledate")) + "    ";
+                    line += check_leave_type(rs.getInt("ltype")) + "   ";
+                    line += check_state(rs.getInt("lstate")) + "        ";
                     line += (rs.getString("lrefuse") == null ? "无" : rs.getString("lrefuse"));
                     System.out.println(line);
                 }
                 System.out.println("您想要审批他们的申请吗？1：是；0：否");
                 scanner = new Scanner(System.in);
-                if(scanner.nextInt() == 1){
+                if (scanner.nextInt() == 1) {
                     System.out.println("请输入想要审批的申请的序号:");
                     scanner = new Scanner(System.in);
                     int lno = scanner.nextInt();
@@ -331,70 +327,70 @@ public class DepartmentManager {
                     System.out.println("请输入拒绝理由(若同意或无理由请不输入):");
                     scanner = new Scanner(System.in);
                     String lrefuse = scanner.nextLine();
-                    while (lrefuse.isEmpty()){
-                        if(lstate == 3) {
+                    while (lrefuse.isEmpty()) {
+                        if (lstate == 3) {
                             System.out.println("您拒绝了他的申请，必须填写拒绝理由↓");
                             scanner = new Scanner(System.in);
                             lrefuse = scanner.nextLine();
-                        }
-                        else
+                        } else
                             break;
                     }
-                    stmt.execute(" update checkleave set lstate='"+lstate+"' ,lrefuse='"+lrefuse+"' where lno="+lno);
+                    stmt.execute(" update checkleave set lstate='" + lstate + "' ,lrefuse='" + lrefuse + "' where lno=" + lno);
                     System.out.println("审批成功！");
                     //写入日志
-                    if(lstate == 2)
+                    if (lstate == 2)
                         writelog("approve_leave");
-                    else if(lstate == 3)
+                    else if (lstate == 3)
                         writelog("reject_leave");
-                    //查询要被更新的请假条目的起始日期和终止日期
-                    java.sql.Date lsdate = null,ledate = null;
-                    String eno = null;
-                    rs = stmt.executeQuery("SELECT lsdate,ledate,eno FROM `leave` WHERE lno="+lno);
-                    while (rs.next()){
-                        lsdate = rs.getDate("lsdate");
-                        ledate = rs.getDate("ledate");
-                        eno = rs.getString("eno");
-                    }
-                    //把请假日期之内的每一天的考勤信息都设置成请假状态
-                    int days = (int)(ledate.getTime() - lsdate.getTime())/86400000+1;
-                    String sql;
-                    for(int i = 0;i < days;i++){
-                        java.sql.Date tmp = new java.sql.Date(lsdate.getTime()+86400000*i);
-                        //判断这一天是否已经请假或出差
-                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
-                        rs = stmt.executeQuery(sql);
-                        if (rs.next())//next有值返回true
-                            sql = "UPDATE attendance SET astate ='"+ 2 + "' WHERE adate ="+tmp;
-                        else
-                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 2 + "')";
-                        stmt.execute(sql);
+                    if (lstate == 2) {
+                        //查询要被更新的请假条目的起始日期和终止日期
+                        java.sql.Date lsdate = null, ledate = null;
+                        String eno = null;
+                        rs = stmt.executeQuery("SELECT lsdate,ledate,eno FROM `leave` WHERE lno=" + lno);
+                        while (rs.next()) {
+                            lsdate = rs.getDate("lsdate");
+                            ledate = rs.getDate("ledate");
+                            eno = rs.getString("eno");
+                        }
+                        //把请假日期之内的每一天的考勤信息都设置成请假状态
+                        int days = (int) (ledate.getTime() - lsdate.getTime()) / 86400000 + 1;
+                        String sql;
+                        for (int i = 0; i < days; i++) {
+                            java.sql.Date tmp = new java.sql.Date(lsdate.getTime() + 86400000 * i);
+                            //判断这一天是否已经请假或出差
+                            sql = "SELECT * FROM attendance WHERE adate = '" + tmp + "' AND astate != 1";
+                            rs = stmt.executeQuery(sql);
+                            if (rs.next())//next有值返回true
+                                sql = "UPDATE attendance SET astate ='" + 2 + "' WHERE adate =" + tmp;
+                            else
+                                sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('" + eno + "', '" + tmp + "', '" + 2 + "')";
+                            stmt.execute(sql);
+                        }
                     }
                     System.out.println();
-                }
-                else
+                } else
                     return;
                 break;
             case "2":
                 rs = stmt.executeQuery("SELECT * FROM checktrip natural join trip" +
-                        " WHERE dno = " + manager_dno+
+                        " WHERE dno = " + manager_dno +
                         " AND tstate = 1 ");//待审批或者被驳回的申请
                 System.out.println("以下是您部门里没有成功或待处理的出差申请：");
                 System.out.println("序号--------员工工号-----开始日期-----结束日期--------类型---审批状态-----拒绝理由");
                 //System.out.println("120180112---10001----2018-01-12--2018-01-14---公司指派---待审和--------无");
-                while (rs.next()){
-                    line = (rs.getString("tno") == null ? "无" : rs.getString("tno")) +"   ";
-                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) +"    ";
-                    line += (rs.getString("tsdate") == null ? "无" : rs.getString("tsdate")) +"  ";
-                    line += (rs.getString("tedate") == null ? "无" : rs.getString("tedate")) +"    ";
-                    line += check_trip_type(rs.getInt("ttype"))+"   ";
-                    line += check_state(rs.getInt("tstate"))+"        ";
+                while (rs.next()) {
+                    line = (rs.getString("tno") == null ? "无" : rs.getString("tno")) + "   ";
+                    line += (rs.getString("eno") == null ? "无" : rs.getString("eno")) + "    ";
+                    line += (rs.getString("tsdate") == null ? "无" : rs.getString("tsdate")) + "  ";
+                    line += (rs.getString("tedate") == null ? "无" : rs.getString("tedate")) + "    ";
+                    line += check_trip_type(rs.getInt("ttype")) + "   ";
+                    line += check_state(rs.getInt("tstate")) + "        ";
                     line += (rs.getString("trefuse") == null ? "无" : rs.getString("trefuse"));
                     System.out.println(line);
                 }
                 System.out.println("您想要审批他们的申请吗？1：是；0：否");
                 scanner = new Scanner(System.in);
-                if(scanner.nextInt() == 1){
+                if (scanner.nextInt() == 1) {
                     System.out.println("请输入想要审批的申请的序号:");
                     scanner = new Scanner(System.in);
                     int tno = scanner.nextInt();
@@ -404,44 +400,45 @@ public class DepartmentManager {
                     System.out.println("请输入拒绝理由(若同意或无理由请不输入):");
                     scanner = new Scanner(System.in);
                     String trefuse = scanner.nextLine();
-                    while (trefuse.isEmpty()){
-                        if(tstate == 3) {
+                    while (trefuse.isEmpty()) {
+                        if (tstate == 3) {
                             System.out.println("您拒绝了他的申请，必须填写拒绝理由:");
                             scanner = new Scanner(System.in);
                             trefuse = scanner.nextLine();
-                        }
-                        else
+                        } else
                             break;
                     }
-                    stmt.execute(" update checktrip set tstate="+tstate+" ,trefuse='"+trefuse+"' where tno="+tno);
+                    stmt.execute(" update checktrip set tstate=" + tstate + " ,trefuse='" + trefuse + "' where tno=" + tno);
                     System.out.println("审批成功！");
                     //写入日志
-                    if(tstate == 2)
+                    if (tstate == 2)
                         writelog("approve_trip");
-                    else if(tstate == 3)
+                    else if (tstate == 3)
                         writelog("reject_trip");
-                    //查询要被更新的出差条目的起始日期和终止日期
-                    java.sql.Date tsdate = null,tedate = null;
-                    String eno = null;
-                    rs = stmt.executeQuery("SELECT tsdate,tedate,eno FROM trip WHERE tno="+tno);
-                    while (rs.next()){
-                        tsdate = rs.getDate("tsdate");
-                        tedate = rs.getDate("tedate");
-                        eno = rs.getString("eno");
-                    }
-                    //把请假日期之内的每一天的考勤信息都设置成请假状态
-                    int days = (int)(tedate.getTime() - tsdate.getTime())/86400000+1;
-                    String sql;
-                    for(int i = 0;i<days;i++){
-                        java.sql.Date tmp = new java.sql.Date(tsdate.getTime()+86400000*i);
-                        //判断这一天是否已经请假或出差
-                        sql = " SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
-                        rs = stmt.executeQuery(sql);
-                        if (rs.next())//next有值返回true
-                            sql = "UPDATE attendance SET astate ='"+ 3 + "' WHERE adate ="+tmp;
-                        else
-                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+eno + "', '" + tmp + "', '" + 3 + "')";
-                        stmt.execute(sql);
+                    if (tstate == 2) {
+                        //查询要被更新的出差条目的起始日期和终止日期
+                        java.sql.Date tsdate = null, tedate = null;
+                        String eno = null;
+                        rs = stmt.executeQuery("SELECT tsdate,tedate,eno FROM trip WHERE tno=" + tno);
+                        while (rs.next()) {
+                            tsdate = rs.getDate("tsdate");
+                            tedate = rs.getDate("tedate");
+                            eno = rs.getString("eno");
+                        }
+                        //把请假日期之内的每一天的考勤信息都设置成请假状态
+                        int days = (int) (tedate.getTime() - tsdate.getTime()) / 86400000 + 1;
+                        String sql;
+                        for (int i = 0; i < days; i++) {
+                            java.sql.Date tmp = new java.sql.Date(tsdate.getTime() + 86400000 * i);
+                            //判断这一天是否已经请假或出差
+                            sql = " SELECT * FROM attendance WHERE adate = '" + tmp + "' AND astate != 1";
+                            rs = stmt.executeQuery(sql);
+                            if (rs.next())//next有值返回true
+                                sql = "UPDATE attendance SET astate ='" + 3 + "' WHERE adate =" + tmp;
+                            else
+                                sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('" + eno + "', '" + tmp + "', '" + 3 + "')";
+                            stmt.execute(sql);
+                        }
                     }
                     System.out.println();
                 }
@@ -460,7 +457,7 @@ public class DepartmentManager {
         stmt.executeUpdate(sql);
     }
 
-    public String check_dno(String eno) throws Exception{
+    public String check_dno(String eno) throws Exception {
         ResultSet rs = stmt.executeQuery("SELECT * FROM belong WHERE eno ='" + eno + "'");
         String dno = "";
         while (rs.next())
@@ -468,8 +465,8 @@ public class DepartmentManager {
         return dno;
     }
 
-    public static String check_leave_type(int type){
-        switch (type){
+    public static String check_leave_type(int type) {
+        switch (type) {
             case 1:
                 return "事假";
             case 2:
@@ -485,8 +482,8 @@ public class DepartmentManager {
         }
     }
 
-    public static String check_state(int state){
-        switch (state){
+    public static String check_state(int state) {
+        switch (state) {
             case 1:
                 return "待审核";
             case 2:
@@ -498,8 +495,8 @@ public class DepartmentManager {
         }
     }
 
-    public static String check_trip_type(int type){
-        switch (type){
+    public static String check_trip_type(int type) {
+        switch (type) {
             case 1:
                 return "公司指派";
             case 2:

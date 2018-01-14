@@ -160,7 +160,6 @@ public class Main {
             }
         }catch(Exception e){
             System.out.println("输入不合法！");
-            e.printStackTrace();
         }
     }
 }

@@ -45,7 +45,6 @@ public class Administrator {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("输入不合法！");
         }
 
@@ -119,7 +118,7 @@ public class Administrator {
                     count = rs.getInt(1);
                 }
                 if (count == 0) {
-                    System.out.println("不存在部门编号为" + dname + "的部门！");
+                    System.out.println("不存在部门名为" + dname + "的部门！");
                     return;
                 }
                 rs = stmt.executeQuery("SELECT * FROM department WHERE dname = '" + dname + "'");
@@ -348,7 +347,7 @@ public class Administrator {
                     System.out.println("不存在工号为" + usrId + "的用户！");
                     return;
                 }
-                rs = stmt.executeQuery("SELECT * FROM attendance WHERE eno=" + usrId);
+                rs = stmt.executeQuery("SELECT * FROM attendance,vacation WHERE eno='" + usrId+"'AND vacation.vdate = attendance.adate");
                 break;
             case 2:
                 System.out.println("请输入用户姓名");
@@ -363,38 +362,62 @@ public class Administrator {
                     System.out.println("不存在名字为" + name + "的用户！");
                     return;
                 }
-                rs = stmt.executeQuery("SELECT * FROM attendance WHERE eno='" + eno + "'");
+                rs = stmt.executeQuery("SELECT * FROM attendance,vacation WHERE eno='" + eno + "' AND vacation.vdate = attendance.adate");
 
                 break;
             default:
                 System.out.println("请输入1/2");
                 return;
         }
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+
         while (rs.next()) {
-            System.out.print("工号: " + rs.getString(1) + "  ");
-            System.out.print("日期: " + rs.getDate(2) + "  ");
-            System.out.print("签到时间: " + rs.getTime(3) + "  ");
-            System.out.print("签退时间: " + rs.getTime(4) + "  ");
-            String state = "";
-            if (rs.getInt(8) == 2) {
-                state = "请假";
-            } else if (rs.getInt(8) == 3) {
-                state = "出差";
-            } else {
-                if (rs.getInt(7) == 0) {
-                    state = "旷工";
+            String state;
+            String eno=rs.getString(1);
+            java.sql.Date date = rs.getDate("adate");
+            int astate = rs.getInt("astate");
+            int arrive = rs.getInt("arrive");
+            int leave = rs.getInt("leave");
+            String intime = rs.getString("intime");
+            String outtime = rs.getString("outtime");
+            int absent = rs.getInt("absent");
+            int vacation = rs.getInt("vacation");
+            if (date.before(sqlDate) && !Objects.equals(String.valueOf(sqlDate), String.valueOf(date))) {
+                if (intime == null) {
+                    intime = "        ";
+                }
+                if (outtime == null) {
+                    outtime = "        ";
+                }
+                if (astate == 2) {
+                    state = "请假";
+                } else if (astate == 3) {
+                    state = "出差";
                 } else {
-                    if (rs.getInt(5) == 0) {
-                        state += "迟到";
-                    }
-                    if (rs.getInt(6) == 0) {
-                        state += "早退";
+                    if (vacation == 1) {
+                        state = "  公休 ";
                     } else {
-                        state = "正常上班";
+                        if (absent == 0) {
+                            state = "旷工";
+                        } else {
+                            if ((arrive == 0) && (leave == 0)) {
+                                state = "迟到早退";
+                            } else if (arrive == 0) {
+                                state = "  迟到 ";
+                            } else if ((arrive == 1) && (leave == 1)) {
+                                state = "正常出勤";
+                            } else {
+                                state = "  早退 ";
+                            }
+                        }
                     }
                 }
+                System.out.print("工号: " + eno + "  ");
+                System.out.print("日期: " + date + "  ");
+                System.out.print("签到时间: " + intime + "  ");
+                System.out.print("签退时间: " + outtime + "  ");
+                System.out.print("状态： " + state + "\n");
             }
-            System.out.print("状态： " + state + "\n");
             System.out.println();
         }
     }

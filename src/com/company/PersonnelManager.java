@@ -49,7 +49,6 @@ public class PersonnelManager {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("输入不合法！");
         }
     }
@@ -325,26 +324,28 @@ public class PersonnelManager {
                         writelog("approve_leave");
                     else if(lstate == 3)
                         writelog("reject_leave");
-                    //查询要被更新的请假条目的起始日期和终止日期
-                    java.sql.Date lsdate = null,ledate = null;
-                    sql = "SELECT lsdate,ledate FROM `leave` WHERE lno="+lno;
-                    rs = stmt.executeQuery(sql);
-                    while (rs.next()){
-                        lsdate = rs.getDate("lsdate");
-                        ledate = rs.getDate("ledate");
-                    }
-                    //把请假日期之内的每一天的考勤信息都设置成请假状态
-                    int days = ((int)((ledate.getTime() - lsdate.getTime())/86400000))+1;
-                    for(int i = 0;i < days;i++){
-                        java.sql.Date tmp = new java.sql.Date(lsdate.getTime()+86400000*i);
-                        //判断这一天是否已经请假或出差
-                        sql = " SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                    if(lstate == 2) {
+                        //查询要被更新的请假条目的起始日期和终止日期
+                        java.sql.Date lsdate = null, ledate = null;
+                        sql = "SELECT lsdate,ledate FROM `leave` WHERE lno=" + lno;
                         rs = stmt.executeQuery(sql);
-                        if (rs.next())//next有值返回true
-                            sql = "UPDATE attendance SET astate ='"+ 2 + "' WHERE adate ="+tmp;
-                        else
-                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+mno + "', '" + tmp + "', '" + 2 + "')";
-                        stmt.execute(sql);
+                        while (rs.next()) {
+                            lsdate = rs.getDate("lsdate");
+                            ledate = rs.getDate("ledate");
+                        }
+                        //把请假日期之内的每一天的考勤信息都设置成请假状态
+                        int days = ((int) ((ledate.getTime() - lsdate.getTime()) / 86400000)) + 1;
+                        for (int i = 0; i < days; i++) {
+                            java.sql.Date tmp = new java.sql.Date(lsdate.getTime() + 86400000 * i);
+                            //判断这一天是否已经请假或出差
+                            sql = " SELECT * FROM attendance WHERE adate = '" + tmp + "' AND astate != 1";
+                            rs = stmt.executeQuery(sql);
+                            if (rs.next())//next有值返回true
+                                sql = "UPDATE attendance SET astate ='" + 2 + "' WHERE adate =" + tmp;
+                            else
+                                sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('" + mno + "', '" + tmp + "', '" + 2 + "')";
+                            stmt.execute(sql);
+                        }
                     }
                     System.out.println();
                 }
@@ -414,26 +415,28 @@ public class PersonnelManager {
                         writelog("approve_trip");
                     else if(tstate == 3)
                         writelog("reject_trip");
-                    //查询要被更新的出差条目的起始日期和终止日期
-                    java.sql.Date tsdate = null,tedate = null;
-                    sql = "SELECT tsdate,tedate FROM trip WHERE tno="+tno;
-                    rs = stmt.executeQuery(sql);
-                    while (rs.next()){
-                        tsdate = rs.getDate("tsdate");
-                        tedate = rs.getDate("tedate");
-                    }
-                    //把出差日期之内的每一天的考勤信息都设置成出差状态
-                    int days = (int)(tedate.getTime() - tsdate.getTime())/86400000+1;
-                    for(int i = 0;i < days;i++){
-                        java.sql.Date tmp = new java.sql.Date(tsdate.getTime()+86400000*i);
-                        //判断这一天是否已经请假或出差
-                        sql = "SELECT * FROM attendance WHERE adate = '"+tmp+"' AND astate != 1";
+                    if(tstate == 2) {
+                        //查询要被更新的出差条目的起始日期和终止日期
+                        java.sql.Date tsdate = null, tedate = null;
+                        sql = "SELECT tsdate,tedate FROM trip WHERE tno=" + tno;
                         rs = stmt.executeQuery(sql);
-                        if (rs.next())//next有值返回truex
-                            sql = "UPDATE attendance SET astate ='"+ 3 + "' WHERE adate ="+tmp;
-                        else
-                            sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('"+mno + "', '" + tmp + "', '" + 3 + "')";
-                        stmt.execute(sql);
+                        while (rs.next()) {
+                            tsdate = rs.getDate("tsdate");
+                            tedate = rs.getDate("tedate");
+                        }
+                        //把出差日期之内的每一天的考勤信息都设置成出差状态
+                        int days = (int) (tedate.getTime() - tsdate.getTime()) / 86400000 + 1;
+                        for (int i = 0; i < days; i++) {
+                            java.sql.Date tmp = new java.sql.Date(tsdate.getTime() + 86400000 * i);
+                            //判断这一天是否已经请假或出差
+                            sql = "SELECT * FROM attendance WHERE adate = '" + tmp + "' AND astate != 1";
+                            rs = stmt.executeQuery(sql);
+                            if (rs.next())//next有值返回truex
+                                sql = "UPDATE attendance SET astate ='" + 3 + "' WHERE adate =" + tmp;
+                            else
+                                sql = "INSERT INTO attendance(eno,adate,astate) VALUES ('" + mno + "', '" + tmp + "', '" + 3 + "')";
+                            stmt.execute(sql);
+                        }
                     }
                     System.out.println();
                 }
